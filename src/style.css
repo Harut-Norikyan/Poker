@@ -1,0 +1,87 @@
+.container{
+    width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*height: 600px;*/
+}
+.table{
+    width: 960px;
+    height: auto;
+}
+.card{
+    width: 40px;
+    height: 55px;
+    border: 1px solid rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    /* list-style-type: none; */
+    flex-flow: column;
+    overflow: hidden;
+    border-radius: 1.5px;
+    background: #fff;
+}
+.valueBlock{
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    height: 10px;
+}
+.value{
+    font-size: 13px;
+    font-weight: 700;
+    margin-left: 1px;
+}
+.suitImg{
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+}
+.cardsOnTheTable{
+    width: 55px;
+    height: 70px;
+    border: 2px solid #808080;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px;
+}
+.blocks{
+    display: flex;
+}
+.hisCardsBlock{
+    position: absolute;
+    width: 960px;
+    justify-content: center;
+    margin-top: 50px;
+    z-index: 2;
+}
+.ourCardsBlock{
+    position: absolute;
+    width: 960px;
+    /*justify-content: center;*/
+    margin-top: 200px;
+}
+.ourCardsLeft{
+    width: 53%;
+    display: flex;
+    justify-content: flex-end;
+}
+.ourCardsRight{
+    width: 45%;
+    display: flex;
+    justify-content: flex-start;
+}
+.myCardsBlock{
+    position: absolute;
+    width: 960px;
+    justify-content: center;
+    margin-top: 360px;
+}
+.backgroundBlock{
+    margin-top: initial;
+    z-index: 1;
+    position: absolute;
+}
