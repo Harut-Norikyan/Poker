@@ -122,8 +122,14 @@ class App extends Component {
                 </span>
             ) : null}
           </div>
+
           <div className="ourCardsBlock blocks">
             <div className="ourCardsLeft blocks">
+              <div className="ourCardsLeft blocks backgroundBlock">
+                <span className="cardsOnTheTable" />
+                <span className="cardsOnTheTable" />
+                <span className="cardsOnTheTable" />
+              </div>
               {ourCardsLeft.length ? ourCardsLeft.map(m =>
                 <span key={m.value + Math.random()} className="cardsOnTheTable">
                 <div className="card">
@@ -136,6 +142,10 @@ class App extends Component {
               ) : null}
             </div>
             <div className="ourCardsRight blocks">
+              <div className="ourCardsRight blocks backgroundBlock">
+                <span className="cardsOnTheTable" />
+                <span className="cardsOnTheTable" />
+              </div>
               {ourCardsRight.length ? ourCardsRight.map(m =>
                 <span key={m.value + Math.random()} className="cardsOnTheTable">
                 <div className="card">
@@ -148,6 +158,7 @@ class App extends Component {
               ) : null}
             </div>
           </div>
+
           <div className="myCardsBlock blocks">
             <div className="myCardsBlock blocks backgroundBlock">
               <span className="cardsOnTheTable"/>
@@ -171,8 +182,8 @@ class App extends Component {
           <div>
             <h1>Round {round}</h1>
           </div>
-        </div>
 
+      </div>
       </div>
     );
   }
