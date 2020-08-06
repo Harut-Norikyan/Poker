@@ -16,12 +16,12 @@ class App extends Component {
     hisCards: [],
     ourCardsLeft: [],
     ourCardsRight: [],
+    round:0
   }
 
   componentDidMount() {
     this.createDeck()
   }
-
 
   createDeck = async () => {
     let {suits, values, deck} = this.state
@@ -54,10 +54,9 @@ class App extends Component {
     })
   }
 
-
   stepOne = async () => {
-    let {deck, myCards, hisCards, ourCardsLeft, ourCardsRight} = this.state
-    if (!ourCardsRight.length) {
+    let {deck, myCards, hisCards, ourCardsLeft, ourCardsRight,round} = this.state
+    if (!ourCardsLeft.length) {
       myCards = deck.slice(0, 2)
       deck = deck.slice(2)
       hisCards = deck.slice(0, 2)
@@ -68,34 +67,42 @@ class App extends Component {
         myCards,
         hisCards,
         ourCardsLeft,
-        deck
+        deck,
       })
-    }else {
-     await this.setState({
-        myCards: [],
-        hisCards: [],
-        ourCardsLeft: [],
-        ourCardsRight: [],
-        deck:[]
-      })
-      this.createDeck()
-    }
+      if (myCards.length){
+        this.setState({
+          round: round+1
+        })
+      }
 
+    }else {
+      if (ourCardsRight.length){
+        await this.setState({
+          myCards: [],
+          hisCards: [],
+          ourCardsLeft: [],
+          ourCardsRight: [],
+          deck:[],
+        })
+        this.createDeck()
+      }
+    }
   }
 
   stepTwo = async () => {
-    let {deck, ourCardsRight} = this.state
-    ourCardsRight = deck.slice(0, 2)
-    deck = deck.slice(2)
-    await this.setState({
-      ourCardsRight,
-      deck
-    })
+    let {deck, ourCardsRight,ourCardsLeft} = this.state
+    if (ourCardsLeft.length !== 0 && !ourCardsRight.length){
+      ourCardsRight = deck.slice(0, 2)
+      deck = deck.slice(2)
+      await this.setState({
+        ourCardsRight,
+        deck,
+      })
+    }
   }
 
   render() {
-    let {deck, myCards, hisCards, ourCardsLeft, ourCardsRight, hisCardsShow} = this.state
-
+    let { myCards, hisCards, ourCardsLeft, ourCardsRight,round} = this.state
     return (
       <div className="container">
         <div className="tableBlock">
@@ -105,7 +112,7 @@ class App extends Component {
               <span className="cardsOnTheTable"/>
             </div>
             {hisCards.length ? hisCards.map(m =>
-              <span className="cardsOnTheTable">
+              <span key={m.value + Math.random()} className="cardsOnTheTable">
                 <div className="card">
                   <div className="valueBlock">
                     <span style={{color: m.color}} className="value">{m.value}</span>
@@ -118,7 +125,7 @@ class App extends Component {
           <div className="ourCardsBlock blocks">
             <div className="ourCardsLeft blocks">
               {ourCardsLeft.length ? ourCardsLeft.map(m =>
-                <span className="cardsOnTheTable">
+                <span key={m.value + Math.random()} className="cardsOnTheTable">
                 <div className="card">
                   <div className="valueBlock">
                     <span style={{color: m.color}} className="value">{m.value}</span>
@@ -130,7 +137,7 @@ class App extends Component {
             </div>
             <div className="ourCardsRight blocks">
               {ourCardsRight.length ? ourCardsRight.map(m =>
-                <span className="cardsOnTheTable">
+                <span key={m.value + Math.random()} className="cardsOnTheTable">
                 <div className="card">
                   <div className="valueBlock">
                     <span style={{color: m.color}} className="value">{m.value}</span>
@@ -147,7 +154,7 @@ class App extends Component {
               <span className="cardsOnTheTable"/>
             </div>
             {myCards.length ? myCards.map(m =>
-              <span className="cardsOnTheTable">
+              <span key={m.value + Math.random()} className="cardsOnTheTable">
                 <div className="card">
                   <div className="valueBlock">
                     <span style={{color: m.color}} className="value">{m.value}</span>
@@ -157,9 +164,13 @@ class App extends Component {
                 </span>
             ) : null}
           </div>
+
           <img src={table} className="table" alt=""/>
           <button onClick={this.stepOne}>Step 1</button>
           <button onClick={this.stepTwo}>Step 2</button>
+          <div>
+            <h1>Round {round}</h1>
+          </div>
         </div>
 
       </div>
