@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import spadesLogo from "./SuitsIcon/spade.png"
-import diamondsLogo from "./SuitsIcon/diamond.png"
-import clubsLogo from "./SuitsIcon/club.png"
-import heartsLogo from "./SuitsIcon/heart.png"
-import table from "./SuitsIcon/table.png"
-import Card from "./Components/Card"
+import React, { Component } from 'react';
+import spadesLogo from "./SuitsIcon/spade.png";
+import diamondsLogo from "./SuitsIcon/diamond.png";
+import clubsLogo from "./SuitsIcon/club.png";
+import heartsLogo from "./SuitsIcon/heart.png";
+import table from "./SuitsIcon/table.png";
+import Cards from "./Components/Cards";
 
 class App extends Component {
   state = {
@@ -17,21 +17,21 @@ class App extends Component {
     hisCards: [],
     ourCardsLeft: [],
     ourCardsRight: [],
-    round: 0
+    round: 0,
   }
 
   componentDidMount() {
-    this.createDeck()
-  }
+    this.createDeck();
+  };
 
   createDeck = async () => {
-    let {suits, values, deck} = this.state
+    let { suits, values, deck } = this.state;
     for (let i = 0; i < suits.length; i++) {
       for (let x = 0; x < values.length; x++) {
-        let card = {value: values[x], suit: suits[i]};
+        let card = { value: values[x], suit: suits[i] };
         deck.push(card);
-      }
-    }
+      };
+    };
     deck.map(u => {
       if (u.suit === "spades" || u.suit === "clubs") {
         u.color = "black"
@@ -42,107 +42,96 @@ class App extends Component {
       if (u.suit === "diamonds") u.suit = diamondsLogo
       if (u.suit === "clubs") u.suit = clubsLogo
       if (u.suit === "hearts") u.suit = heartsLogo
-    })
+    });
     for (let i = 0; i < 1000; i++) {
       let location1 = Math.floor((Math.random() * deck.length));
       let location2 = Math.floor((Math.random() * deck.length));
       let shuffling = deck[location1];
       deck[location1] = deck[location2];
       deck[location2] = shuffling;
-    }
-    await this.setState({
-      deck
-    })
-  }
+    };
+    await this.setState({ deck });
+  };
+
+  setOneCard = () => {
+    let { deck, myCards, hisCards, ourCardsLeft } = this.state
+    for (let i = 1; i < 3; i++) {
+       setTimeout(() => {
+        myCards.push(deck.slice(0, 1)[0]);
+        deck = deck.slice(1);
+        this.setState({ myCards, deck });
+        setTimeout(() => {
+          hisCards.push(deck.slice(0, 1)[0]);
+          deck = deck.slice(1);
+          this.setState({ hisCards, deck });
+        }, 1000);
+      }, i * 500);
+    };
+    setTimeout(() => {
+      for (let i = 1; i < 4; i++) {
+        setTimeout(() => {
+          ourCardsLeft.push(deck.slice(0, 1)[0]);
+          deck = deck.slice(1);
+          this.setState({ ourCardsLeft, deck });
+        }, i * 500);       
+      };     
+    }, 2000); 
+  };
 
   stepOne = async () => {
-    let {deck, myCards, hisCards, ourCardsLeft, ourCardsRight, round} = this.state
-    if (!ourCardsLeft.length) {
-      myCards = deck.slice(0, 2)
-      deck = deck.slice(2)
-      hisCards = deck.slice(0, 2)
-      deck = deck.slice(2)
-      ourCardsLeft = deck.slice(0, 3)
-      deck = deck.slice(3)
+    let { ourCardsRight, round, ourCardsLeft, hisCards, myCards } = this.state     
+    if (ourCardsRight.length) {
       await this.setState({
-        myCards,
-        hisCards,
-        ourCardsLeft,
-        deck,
-      })
-      if (myCards.length) {
-        this.setState({
-          round: round + 1
-        })
-      }
-    } else {
-      if (ourCardsRight.length) {
-        await this.setState({
-          myCards: [],
-          hisCards: [],
-          ourCardsLeft: [],
-          ourCardsRight: [],
-          deck: [],
-        })
-        this.createDeck()
-      }
-    }
-  }
+        myCards: [],
+        hisCards: [],
+        ourCardsLeft: [],
+        ourCardsRight: [],
+        deck: [],
+        round: round + 1,
+      });
+      this.createDeck();
+    };
+    if(!ourCardsRight.length && !ourCardsLeft.length && !hisCards.length && !myCards.length){
+      this.setOneCard();
+    };
+  };
 
   stepTwo = async () => {
-    let {deck, ourCardsRight, ourCardsLeft} = this.state
+    let { deck, ourCardsRight, ourCardsLeft } = this.state;
     if (ourCardsLeft.length !== 0 && !ourCardsRight.length) {
-      ourCardsRight = deck.slice(0, 2)
-      deck = deck.slice(2)
-      await this.setState({
-        ourCardsRight,
-        deck,
-      })
-    }
-  }
+      for (let i = 1; i < 3; i++) {
+        setTimeout(() => {
+          ourCardsRight.push(deck.slice(0, 1)[0]);
+          deck = deck.slice(1);
+          this.setState({ ourCardsRight });
+        }, i * 500);
+      };
+    };
+  };
 
   render() {
-    let {myCards, hisCards, ourCardsLeft, ourCardsRight, round} = this.state
     return (
       <div className="container">
         <div className="tableBlock">
           <div className="hisCardsBlock blocks">
-            <div className="hisCardsBlock blocks backgroundBlock">
-              <span className="cardsOnTheTable"/>
-              <span className="cardsOnTheTable"/>
-            </div>
-            <Card data={this.state.hisCards}/>
+            <Cards data={this.state.hisCards} />
           </div>
           <div className="ourCardsBlock blocks">
             <div className="ourCardsLeft blocks">
-              <div className="ourCardsLeft blocks backgroundBlock">
-                <span className="cardsOnTheTable"/>
-                <span className="cardsOnTheTable"/>
-                <span className="cardsOnTheTable"/>
-              </div>
-              <Card data={this.state.ourCardsLeft}/>
+              <Cards data={this.state.ourCardsLeft} />
             </div>
             <div className="ourCardsRight blocks">
-              <div className="ourCardsRight blocks backgroundBlock">
-                <span className="cardsOnTheTable"/>
-                <span className="cardsOnTheTable"/>
-              </div>
-              <Card data={this.state.ourCardsRight}/>
+              <Cards data={this.state.ourCardsRight} />
             </div>
           </div>
-
           <div className="myCardsBlock blocks">
-            <div className="myCardsBlock blocks backgroundBlock">
-              <span className="cardsOnTheTable"/>
-              <span className="cardsOnTheTable"/>
-            </div>
-            <Card data={this.state.myCards}/>
+            <Cards data={this.state.myCards} />
           </div>
-          <img src={table} className="table" alt=""/>
+          <img src={table} className="table" alt="" />
           <button onClick={this.stepOne}>Step 1</button>
           <button onClick={this.stepTwo}>Step 2</button>
           <div>
-            <h1>Round {round}</h1>
+            <h1>Round {this.state.round}</h1>
           </div>
         </div>
       </div>

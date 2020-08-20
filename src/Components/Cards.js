@@ -1,10 +1,11 @@
 import React from 'react';
 
-const card = props => {
+const cards = props => {
+
   return (
     <>
-      {props.data ? props.data.map(m =>
-        <span key={m.value + Math.random()} className="cardsOnTheTable">
+      {props.data ? props.data.map((m, index) =>
+        <span key={index} className="cardsOnTheTable">
           <div className="card">
             <div className="valueBlock">
               <span style={{color: m.color}} className="value">{m.value}</span>
@@ -16,4 +17,6 @@ const card = props => {
     </>
   )
 }
-export default card;
+export default cards;
+
+
