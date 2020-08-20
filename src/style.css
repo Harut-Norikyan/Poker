@@ -61,7 +61,7 @@
 .ourCardsBlock{
     position: absolute;
     width: 960px;
-    /*justify-content: center;*/
+    justify-content: center;
     margin-top: 200px;
 }
 .ourCardsLeft{
