@@ -18,6 +18,8 @@ class App extends Component {
     ourCardsLeft: [],
     ourCardsRight: [],
     round: 0,
+    myCardsResult: [],
+    hisCardsResult: [],
   }
 
   componentDidMount() {
@@ -38,10 +40,10 @@ class App extends Component {
       } else {
         u.color = "red"
       }
-      if (u.suit === "spades") u.suit = spadesLogo
-      if (u.suit === "diamonds") u.suit = diamondsLogo
-      if (u.suit === "clubs") u.suit = clubsLogo
-      if (u.suit === "hearts") u.suit = heartsLogo
+      if (u.suit === "spades") u.suitLogo = spadesLogo
+      if (u.suit === "diamonds") u.suitLogo = diamondsLogo
+      if (u.suit === "clubs") u.suitLogo = clubsLogo
+      if (u.suit === "hearts") u.suitLogo = heartsLogo
     });
     for (let i = 0; i < 1000; i++) {
       let location1 = Math.floor((Math.random() * deck.length));
@@ -56,7 +58,7 @@ class App extends Component {
   setOneCard = () => {
     let { deck, myCards, hisCards, ourCardsLeft } = this.state
     for (let i = 1; i < 3; i++) {
-       setTimeout(() => {
+      setTimeout(() => {
         myCards.push(deck.slice(0, 1)[0]);
         deck = deck.slice(1);
         this.setState({ myCards, deck });
@@ -73,13 +75,13 @@ class App extends Component {
           ourCardsLeft.push(deck.slice(0, 1)[0]);
           deck = deck.slice(1);
           this.setState({ ourCardsLeft, deck });
-        }, i * 500);       
-      };     
-    }, 2000); 
+        }, i * 500);
+      };
+    }, 2000);
   };
 
   stepOne = async () => {
-    let { ourCardsRight, round, ourCardsLeft, hisCards, myCards } = this.state     
+    let { ourCardsRight, round, ourCardsLeft, hisCards, myCards } = this.state
     if (ourCardsRight.length) {
       await this.setState({
         myCards: [],
@@ -88,26 +90,39 @@ class App extends Component {
         ourCardsRight: [],
         deck: [],
         round: round + 1,
+        myCardsResult:[],
+        hisCardsResult:[]
       });
       this.createDeck();
     };
-    if(!ourCardsRight.length && !ourCardsLeft.length && !hisCards.length && !myCards.length){
+    if (!ourCardsRight.length && !ourCardsLeft.length && !hisCards.length && !myCards.length) {
       this.setOneCard();
     };
   };
 
-  stepTwo = async () => {
-    let { deck, ourCardsRight, ourCardsLeft } = this.state;
+  stepTwo = async() => {
+    let { deck, ourCardsRight, ourCardsLeft, myCards, hisCards } = this.state;
     if (ourCardsLeft.length !== 0 && !ourCardsRight.length) {
       for (let i = 1; i < 3; i++) {
-        setTimeout(() => {
+         setTimeout(() => {
           ourCardsRight.push(deck.slice(0, 1)[0]);
           deck = deck.slice(1);
           this.setState({ ourCardsRight });
-        }, i * 500);
+          if(ourCardsRight.length === 2){
+           this.setState({
+              myCardsResult:[...myCards,...ourCardsLeft,...ourCardsRight],
+              hisCardsResult:[...hisCards,...ourCardsLeft,...ourCardsRight]
+            })
+            this.checkingOurCards()
+          }
+        }, i * 500);       
       };
     };
   };
+
+  checkingOurCards=()=>{
+    console.log(this.state);
+  }
 
   render() {
     return (

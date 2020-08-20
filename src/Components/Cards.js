@@ -10,7 +10,7 @@ const cards = props => {
             <div className="valueBlock">
               <span style={{color: m.color}} className="value">{m.value}</span>
             </div>
-            <img className="suitImg" src={m.suit} alt=""/>
+            <img className="suitImg" src={m.suitLogo} alt=""/>
           </div>
         </span>) : null
       }
