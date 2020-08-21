@@ -6,11 +6,66 @@ import clubsLogo from "./SuitsIcon/club.png";
 import heartsLogo from "./SuitsIcon/heart.png";
 import table from "./SuitsIcon/table.png";
 import Cards from "./Components/Cards";
+import Combinations from "./Components/Combinations"
 
 class App extends Component {
   state = {
     suits: ["spades", "diamonds", "clubs", "hearts"],
-    values: ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"],
+    // values: ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"],
+    values: [    
+      {
+        key: "2",
+        id: 2,
+      },
+      {
+        key: "3",
+        id: 3,
+      },
+      {
+        key: "4",
+        id: 4,
+      },
+      {
+        key: "5",
+        id: 5,
+      },
+      {
+        key: "6",
+        id: 6,
+      },
+      {
+        key: "7",
+        id: 7,
+      },
+      {
+        key: "8",
+        id: 8,
+      },
+      {
+        key: "9",
+        id: 9,
+      },
+      {
+        key: "10",
+        id: 10,
+      },
+      {
+        key: "J",
+        id: 11,
+      },
+      {
+        key: "Q",
+        id: 12,
+      },
+      {
+        key: "K",
+        id: 13,
+      },
+      {
+        key: "A",
+        id: 14,
+      },
+    ],
     deck: [],
     valueColorRed: '',
     valueColorBlack: '',
@@ -32,7 +87,7 @@ class App extends Component {
     let { suits, values, deck } = this.state;
     for (let i = 0; i < suits.length; i++) {
       for (let x = 0; x < values.length; x++) {
-        let card = { value: values[x], suit: suits[i] };
+        let card = { value: values[x].key, suit: suits[i],id:values[x].id };
         deck.push(card);
       };
     };
@@ -105,7 +160,7 @@ class App extends Component {
 
   stepTwo = async () => {
     let { deck, ourCardsStepTwo, ourCardsStepOne } = this.state;
-    if (ourCardsStepOne.length !== 0 && !ourCardsStepTwo.length) {
+    if (ourCardsStepOne.length === 3 && !ourCardsStepTwo.length) {
       for (let i = 1; i < 2; i++) {
         setTimeout(() => {
           ourCardsStepTwo.push(deck.slice(0, 1)[0]);
@@ -117,28 +172,27 @@ class App extends Component {
   };
 
   stepThree = () => {
-    let { deck, ourCardsStepTwo, ourCardsStepOne, myCards, hisCards, ourCardsStepThree } = this.state
-    if (ourCardsStepOne.length !== 0 && ourCardsStepTwo.length !== 0 && !ourCardsStepThree.length) {
+    let { deck, ourCardsStepTwo, ourCardsStepOne, myCards, hisCards, ourCardsStepThree, myCardsResult, hisCardsResult } = this.state
+    if (ourCardsStepOne.length === 3 && ourCardsStepTwo.length === 1 && !ourCardsStepThree.length) {
       for (let i = 1; i < 2; i++) {
         setTimeout(() => {
           ourCardsStepThree.push(deck.slice(0, 1)[0]);
           deck = deck.slice(1);
           this.setState({ ourCardsStepThree, deck });
-          if(ourCardsStepThree.length === 1){
-           this.setState({
-              myCardsResult:[...myCards,...ourCardsStepOne,...ourCardsStepTwo,...ourCardsStepThree],
-              hisCardsResult:[...hisCards,...ourCardsStepOne,...ourCardsStepTwo,...ourCardsStepThree],
+          if (ourCardsStepThree.length === 1) {
+            this.setState({
+              myCardsResult: [...myCards, ...ourCardsStepOne, ...ourCardsStepTwo, ...ourCardsStepThree],
+              hisCardsResult: [...hisCards, ...ourCardsStepOne, ...ourCardsStepTwo, ...ourCardsStepThree],
             });
-            this.checkingOurCards();
+            this.checkingOurCards(myCardsResult, hisCardsResult);
           };
         }, i * 500);
       };
     };
   }
 
-
   checkingOurCards = () => {
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   render() {
@@ -169,6 +223,7 @@ class App extends Component {
           <div>
             <h1>Round {this.state.round}</h1>
           </div>
+          <Combinations data={this.state} />
         </div>
       </div>
     );
