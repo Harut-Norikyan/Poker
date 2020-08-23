@@ -63,7 +63,7 @@ class App extends Component {
       },
       {
         key: "A",
-        id: 14,
+        id: 14 || 1,
       },
     ],
     deck: [],
