@@ -16,22 +16,26 @@ const Combinations = (props) => {
     const combinations = [
         {
             combination: "Royal Flush",
-            id: 9,
+            id: 10,
         },
         {
             combination: "Straight Flush",
-            id: 8,
+            id: 9,
         },
         {
             combination: "Four Of a Kind",
-            id: 7,
+            id: 8,
         },
         {
             combination: "Full House",
-            id: 6,
+            id: 7,
         },
         {
             combination: "Straight",
+            id: 6,
+        },
+        {
+            combination: "Flush",
             id: 5,
         },
         {
@@ -53,7 +57,6 @@ const Combinations = (props) => {
     ];
     let myCombinations = [];
     let hisCombinations = [];
-
 
 
     //// Straight, Straight--Flush, Flush--Royal
