@@ -21,12 +21,7 @@ class ResultComponent extends Component {
           }
       }
 
-      componentDidMount(){
-          console.log(this.state,"0.0");
-      }
-
-
-
+      
     render() {
      
         return (
