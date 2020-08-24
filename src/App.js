@@ -12,7 +12,7 @@ class App extends Component {
   state = {
     suits: ["spades", "diamonds", "clubs", "hearts"],
     // values: ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"],
-    values: [    
+    values: [
       {
         key: "2",
         id: 2,
@@ -63,7 +63,7 @@ class App extends Component {
       },
       {
         key: "A",
-        id: 14 || 1,
+        id: 14 ,
       },
     ],
     deck: [],
@@ -77,6 +77,7 @@ class App extends Component {
     round: 0,
     myCardsResult: [],
     hisCardsResult: [],
+    start: false,
   }
 
   componentDidMount() {
@@ -87,7 +88,7 @@ class App extends Component {
     let { suits, values, deck } = this.state;
     for (let i = 0; i < suits.length; i++) {
       for (let x = 0; x < values.length; x++) {
-        let card = { value: values[x].key, suit: suits[i],id:values[x].id };
+        let card = { value: values[x].key, suit: suits[i], id: values[x].id };
         deck.push(card);
       };
     };
@@ -149,7 +150,8 @@ class App extends Component {
         deck: [],
         round: round + 1,
         myCardsResult: [],
-        hisCardsResult: []
+        hisCardsResult: [],
+        start: false,
       });
       this.createDeck();
     };
@@ -172,7 +174,8 @@ class App extends Component {
   };
 
   stepThree = () => {
-    let { deck, ourCardsStepTwo, ourCardsStepOne, myCards, hisCards, ourCardsStepThree, myCardsResult, hisCardsResult } = this.state
+    let { deck, ourCardsStepTwo, ourCardsStepOne, myCards, hisCards, ourCardsStepThree, myCardsResult, hisCardsResult } = this.state;
+    this.checkingOurCards();
     if (ourCardsStepOne.length === 3 && ourCardsStepTwo.length === 1 && !ourCardsStepThree.length) {
       for (let i = 1; i < 2; i++) {
         setTimeout(() => {
@@ -180,20 +183,21 @@ class App extends Component {
           deck = deck.slice(1);
           this.setState({ ourCardsStepThree, deck });
           if (ourCardsStepThree.length === 1) {
-            this.setState({
+           this.setState({
               myCardsResult: [...myCards, ...ourCardsStepOne, ...ourCardsStepTwo, ...ourCardsStepThree],
               hisCardsResult: [...hisCards, ...ourCardsStepOne, ...ourCardsStepTwo, ...ourCardsStepThree],
             });
-            this.checkingOurCards(myCardsResult, hisCardsResult);
           };
         }, i * 500);
       };
     };
-  }
+  };
 
   checkingOurCards = () => {
-    // console.log(this.state);
-  }
+    this.setState({
+      start: true,
+    });
+  };
 
   render() {
     return (

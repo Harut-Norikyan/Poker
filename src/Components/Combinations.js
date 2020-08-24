@@ -3,12 +3,25 @@ import ResultComponent from "./ResultComponent"
 
 const Combinations = (props) => {
 
+    // let hisCardsbyId = [2, 3, 4, 5, 6, 13, 13].sort();
+    // let hisResult = [
+    //     { value: "2", suit: "clubs", id: 2, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "3", suit: "clubs", id: 3, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "4", suit: "clubs", id: 4, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "6", suit: "clubs", id: 6, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "5", suit: "clubs", id: 5, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "13", suit: "clubs", id: 13, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "13", suit: "clubs", id: 13, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    // ].sort((a, b) => a.id - b.id)
+
+
+
     const myResult = props.data.myCardsResult.sort((a, b) => a.id - b.id);
     const hisResult = props.data.hisCardsResult.sort((a, b) => a.id - b.id);
+
     const myValues = myResult.map(m => m.value);
-    // const hisValues = [1, 2, 1, 2,3,3].sort()
-    const mySuits = myResult.map(m => m.suit);
     const hisValues = hisResult.map(m => m.value);
+    const mySuits = myResult.map(m => m.suit);
     const hisSuits = hisResult.map(m => m.suit);
     const myCardsbyId = myResult.map(m => m.id);
     const hisCardsbyId = hisResult.map(m => m.id);
@@ -58,8 +71,8 @@ const Combinations = (props) => {
     let myCombinations = [];
     let hisCombinations = [];
 
-
     //// Straight, Straight--Flush, Flush--Royal
+ 
     let myDynamicArrays = [];
     let myIndex = 0;
     for (let i = 0; i < myCardsbyId.length; i++) {
@@ -80,42 +93,35 @@ const Combinations = (props) => {
     if (maxOfMyDynamicArrays.length >= 5) {
         maxOfMyDynamicArrays = maxOfMyDynamicArrays.reverse().splice(0, 5).sort();
     };
-    let arrForMyCardsById = [];
-    for (let i = 0; i < myResult.length; i++) {
-        for (let j = 0; j < maxOfMyDynamicArrays.length; j++) {
-            if (maxOfMyDynamicArrays[j] === myResult[i].id) {
-                arrForMyCardsById.push(myResult[i]);
-            };
-        };
-    };
-    let myObj = {};
-    for (let i = 0; i < arrForMyCardsById.length; i++) {
-        if (myObj[arrForMyCardsById[i].suit]) {
-            myObj[arrForMyCardsById[i].suit] += 1;
-        } else myObj[arrForMyCardsById[i].suit] = 1;
-    };
-    let myArr = Object.values(myObj);
-    let myMaxRecurringSuits = myArr.length ? Math.max(...myArr) : 0;
-    if (arrForMyCardsById.length >= 5 &&
-        myMaxRecurringSuits < 5 &&
-        arrForMyCardsById[0] !== arrForMyCardsById[1] &&
-        arrForMyCardsById[1] !== arrForMyCardsById[2] &&
-        arrForMyCardsById[2] !== arrForMyCardsById[3] &&
-        arrForMyCardsById[3] !== arrForMyCardsById[4]) {
+    let myMaxNumOfStraight = Math.max.apply(null, maxOfMyDynamicArrays);
+    if (maxOfMyDynamicArrays.length >= 5) {
         console.log("I have a Straight");
         const new_comb = combinations.filter(m => m.combination === "Straight");
         myCombinations.push(...new_comb);
+
+        let myArrforSFcards = [];
+        maxOfMyDynamicArrays.forEach(item => {
+            myArrforSFcards.push(hisResult.find(data => data.id === item));
+        });
+        let mySuitArr = [];
+        if (myArrforSFcards.length) {
+            let suit = myArrforSFcards[0].suit;
+            mySuitArr.push(myArrforSFcards.filter(item => item.suit === suit))
+        }
+        if (mySuitArr[0].length < 5) {
+            console.log("I have a Straight Flush");
+            const new_comb = combinations.filter(m => m.combination === "Straight Flush");
+            myCombinations.push(...new_comb);
+        }
+        console.log(mySuitArr, "mySuitArr");
+        if (mySuitArr[0].length >= 5) {
+            console.log("I have a Royal Flush");
+            const new_comb = combinations.filter(m => m.combination === "Royal Flush");
+            myCombinations.push(...new_comb);
+        }
     };
-    if (myMaxRecurringSuits >= 5 && arrForMyCardsById.length >= 5 && arrForMyCardsById[0].id !== 10) {
-        console.log("I have a Straight Flush");
-        const new_comb = combinations.filter(m => m.combination === "Straight Flush");
-        myCombinations.push(...new_comb);
-    };
-    if (myMaxRecurringSuits >= 5 && arrForMyCardsById.length >= 5 && arrForMyCardsById[0].id === 10) {
-        console.log("I have a Royal Flush");
-        const new_comb = combinations.filter(m => m.combination === "Royal Flush");
-        myCombinations.push(...new_comb);
-    };
+
+
 
     let hisDynamicArrays = [];
     let hisIndex = 0;
@@ -123,56 +129,47 @@ const Combinations = (props) => {
         if (hisCardsbyId[i + 1] - hisCardsbyId[i] !== 1) {
             let sliced = hisCardsbyId.slice(hisIndex, i + 1)
             if (sliced.length > 1) {
-                hisDynamicArrays.push(sliced);
-            }
+                hisDynamicArrays.push(sliced)
+            };
             hisIndex = i + 1;
-        }
-    }
+        };
+    };
     let maxOfHisDynamicArrays = [];
     for (let i = 0; i < hisDynamicArrays.length; i++) {
         if (hisDynamicArrays[i].length > maxOfHisDynamicArrays.length) {
             maxOfHisDynamicArrays = hisDynamicArrays[i];
-        }
-    }
+        };
+    };
     if (maxOfHisDynamicArrays.length >= 5) {
         maxOfHisDynamicArrays = maxOfHisDynamicArrays.reverse().splice(0, 5).sort();
-    }
-    let arrForHisCardsById = [];
-    for (let i = 0; i < myResult.length; i++) {
-        for (let j = 0; j < maxOfHisDynamicArrays.length; j++) {
-            if (maxOfHisDynamicArrays[j] === myResult[i].id) {
-                arrForHisCardsById.push(myResult[i]);
-            }
-        }
-    }
-    let hisObj = {};
-    for (let i = 0; i < arrForHisCardsById.length; i++) {
-        if (hisObj[arrForHisCardsById[i].suit]) {
-            hisObj[arrForHisCardsById[i].suit] += 1;
-        } else hisObj[arrForHisCardsById[i].suit] = 1;
     };
-    let hisArr = Object.values(hisObj);
-    let hisMaxRecurringSuits = hisArr.length ? Math.max(...hisArr) : 0;
-    if (arrForHisCardsById.length >= 5 &&
-        hisMaxRecurringSuits < 5 &&
-        arrForHisCardsById[0] !== arrForHisCardsById[1] &&
-        arrForHisCardsById[1] !== arrForHisCardsById[2] &&
-        arrForHisCardsById[2] !== arrForHisCardsById[3] &&
-        arrForHisCardsById[3] !== arrForHisCardsById[4]) {
+    let hisMaxNumOfStraight = Math.max.apply(null, maxOfHisDynamicArrays);
+    if (maxOfHisDynamicArrays.length >= 5) {
         console.log("Dealer have a Straight");
         const new_comb = combinations.filter(m => m.combination === "Straight");
         hisCombinations.push(...new_comb);
-    }
-    if (hisMaxRecurringSuits >= 5 && arrForHisCardsById.length >= 5 && arrForHisCardsById[0].id !== 10) {
-        console.log("Dealer have a Straight Flush");
-        const new_comb = combinations.filter(m => m.combination === "Straight Flush");
-        hisCombinations.push(...new_comb);
+
+        let hisArrforSFcards = [];
+        maxOfHisDynamicArrays.forEach(item => {
+            hisArrforSFcards.push(hisResult.find(data => data.id === item));
+        });
+        let hisSuitArr = [];
+        if (hisArrforSFcards.length) {
+            let suit = hisArrforSFcards[0].suit;
+            hisSuitArr.push(hisArrforSFcards.filter(item => item.suit === suit))
+        }
+        if (hisSuitArr[0].length < 5) {
+            console.log("Dealer have a Straight Flush");
+            const new_comb = combinations.filter(m => m.combination === "Straight Flush");
+            hisCombinations.push(...new_comb);
+        }
+        if (hisSuitArr[0].length >= 5) {
+            console.log("Dealer have a Royal Flush");
+            const new_comb = combinations.filter(m => m.combination === "Royal Flush");
+            hisCombinations.push(...new_comb);
+        }
     };
-    if (hisMaxRecurringSuits >= 5 && arrForHisCardsById.length >= 5 && arrForHisCardsById[0].id === 10) {
-        console.log("Dealer have a Royal Flush");
-        const new_comb = combinations.filter(m => m.combination === "Royal Flush");
-        hisCombinations.push(...new_comb);
-    };
+
     ////Straight, Straight--Flush, Flush--Royal --end  
 
     ////Flush
@@ -235,71 +232,70 @@ const Combinations = (props) => {
         myCombinations.push(...new_comb);
     };
 
-
     if (myRecurringCards.length >= 4) {
         if (myRecurringCards.length === 4) {
             if (myRecurringCards[0] === myRecurringCards[3]) {
-                console.log("Four Of a Kind");
+                console.log("I have Four Of a Kind");
                 const new_comb = combinations.filter(m => m.combination === "Four Of a Kind");
                 myCombinations.push(...new_comb);
             };
         };
         if (myRecurringCards.length === 6) {
             if (myRecurringCards[0] === myRecurringCards[3] && myRecurringCards[0] !== myRecurringCards[5]) {
-                console.log("Four Of a Kind");
+                console.log("I have Four Of a Kind");
                 const new_comb = combinations.filter(m => m.combination === "Four Of a Kind");
                 myCombinations.push(...new_comb);
             };
             if (myRecurringCards[2] === myRecurringCards[5] && myRecurringCards[0] !== myRecurringCards[2]) {
-                console.log("Four Of a Kind");
+                console.log("I have Four Of a Kind");
                 const new_comb = combinations.filter(m => m.combination === "Four Of a Kind");
                 myCombinations.push(...new_comb);
             };
         };
         if (myRecurringCards.length === 7) {
             if (myRecurringCards[0] === myRecurringCards[3] && myRecurringCards[3] !== myRecurringCards[6]) {
-                console.log("Four Of a Kind");
+                console.log("I have Four Of a Kind");
                 const new_comb = combinations.filter(m => m.combination === "Four Of a Kind");
                 myCombinations.push(...new_comb);
             };
             if (myRecurringCards[3] === myRecurringCards[6] && myRecurringCards[3] !== myRecurringCards[0]) {
-                console.log("Four Of a Kind");
+                console.log("I have Four Of a Kind");
                 const new_comb = combinations.filter(m => m.combination === "Four Of a Kind");
                 myCombinations.push(...new_comb);
             };
         };
         if (myRecurringCards.length === 5) {
             if (myRecurringCards[0] === myRecurringCards[1] && myRecurringCards[2] === myRecurringCards[4]) {
-                console.log("Full House");
+                console.log("I have a Full House");
                 const new_comb = combinations.filter(m => m.combination === "Full House");
                 myCombinations.push(...new_comb);
             };
             if (myRecurringCards[0] === myRecurringCards[2] && myRecurringCards[3] === myRecurringCards[4]) {
-                console.log("Full House");
+                console.log("I have a Full House");
                 const new_comb = combinations.filter(m => m.combination === "Full House");
                 myCombinations.push(...new_comb);
             };
         };
         if (myRecurringCards.length === 6) {
             if (myRecurringCards[0] === myRecurringCards[2] && myRecurringCards[3] === myRecurringCards[5]) {
-                console.log("Full House");
+                console.log("I have a Full House");
                 const new_comb = combinations.filter(m => m.combination === "Full House");
                 myCombinations.push(...new_comb);
             };
         };
         if (myRecurringCards.length === 7) {
             if (myRecurringCards[2] === myRecurringCards[4] && myRecurringCards[2] !== myRecurringCards[5] && myRecurringCards[2] !== myRecurringCards[0]) {
-                console.log("Full House");
+                console.log("I have a Full House");
                 const new_comb = combinations.filter(m => m.combination === "Full House");
                 myCombinations.push(...new_comb);
             };
             if (myRecurringCards[0] === myRecurringCards[2] && myRecurringCards[0] !== myRecurringCards[3] && myRecurringCards[0] !== myRecurringCards[5]) {
-                console.log("Full House");
+                console.log("I have a Full House");
                 const new_comb = combinations.filter(m => m.combination === "Full House");
                 myCombinations.push(...new_comb);
             };
             if (myRecurringCards[4] === myRecurringCards[6] && myRecurringCards[4] !== myRecurringCards[0] && myRecurringCards[5] !== myRecurringCards[2]) {
-                console.log("Full House");
+                console.log("I have a Full House");
                 const new_comb = combinations.filter(m => m.combination === "Full House");
                 myCombinations.push(...new_comb);
             };
@@ -329,67 +325,67 @@ const Combinations = (props) => {
     if (hisRecurringCards.length >= 4) {
         if (hisRecurringCards.length === 4) {
             if (hisRecurringCards[0] === hisRecurringCards[3]) {
-                console.log("4 card");
+                console.log("Dealer have Four Of a Kind");
                 const new_comb = combinations.filter(m => m.combination === "Four Of a Kind");
                 hisCombinations.push(...new_comb);
             };
         };
         if (hisRecurringCards.length === 6) {
             if (hisRecurringCards[0] === hisRecurringCards[3] && hisRecurringCards[0] !== hisRecurringCards[5]) {
-                console.log("4 card");
+                console.log("Dealer have Four Of a Kind");
                 const new_comb = combinations.filter(m => m.combination === "Four Of a Kind");
                 hisCombinations.push(...new_comb);
             };
             if (hisRecurringCards[2] === hisRecurringCards[5] && hisRecurringCards[0] !== hisRecurringCards[2]) {
-                console.log("4 card");
+                console.log("Dealer have Four Of a Kind");
                 const new_comb = combinations.filter(m => m.combination === "Four Of a Kind");
                 hisCombinations.push(...new_comb);
             };
         };
         if (hisRecurringCards.length === 7) {
             if (hisRecurringCards[0] === hisRecurringCards[3] && hisRecurringCards[3] !== hisRecurringCards[6]) {
-                console.log("4 card");
+                console.log("Dealer have Four Of a Kind");
                 const new_comb = combinations.filter(m => m.combination === "Four Of a Kind");
                 hisCombinations.push(...new_comb);
             };
             if (hisRecurringCards[3] === hisRecurringCards[6] && hisRecurringCards[3] !== hisRecurringCards[0]) {
-                console.log("4 card");
+                console.log("Dealer have Four Of a Kind");
                 const new_comb = combinations.filter(m => m.combination === "Four Of a Kind");
                 hisCombinations.push(...new_comb);
             };
         };
         if (hisRecurringCards.length === 5) {
             if (hisRecurringCards[0] === hisRecurringCards[1] && hisRecurringCards[2] === hisRecurringCards[4]) {
-                console.log("Full House");
+                console.log("Dealer have a Full House");
                 const new_comb = combinations.filter(m => m.combination === "Full House");
                 hisCombinations.push(...new_comb);
             };
             if (hisRecurringCards[0] === hisRecurringCards[2] && hisRecurringCards[3] === hisRecurringCards[4]) {
-                console.log("Full House");
+                console.log("Dealer have a Full House");
                 const new_comb = combinations.filter(m => m.combination === "Full House");
                 hisCombinations.push(...new_comb);
             };
         };
         if (hisRecurringCards.length === 6) {
             if (hisRecurringCards[0] === hisRecurringCards[2] && hisRecurringCards[3] === hisRecurringCards[5]) {
-                console.log("Full House");
+                console.log("Dealer have a Full House");
                 const new_comb = combinations.filter(m => m.combination === "Full House");
                 hisCombinations.push(...new_comb);
             };
         };
         if (hisRecurringCards.length === 7) {
             if (hisRecurringCards[2] === hisRecurringCards[4] && hisRecurringCards[2] !== hisRecurringCards[5] && hisRecurringCards[2] !== hisRecurringCards[0]) {
-                console.log("Full House");
+                console.log("Dealer have a Full House");
                 const new_comb = combinations.filter(m => m.combination === "Full House");
                 hisCombinations.push(...new_comb);
             }
             if (hisRecurringCards[0] === hisRecurringCards[2] && hisRecurringCards[0] !== hisRecurringCards[3] && hisRecurringCards[0] !== hisRecurringCards[5]) {
-                console.log("Full House");
+                console.log("Dealer have a Full House");
                 const new_comb = combinations.filter(m => m.combination === "Full House");
                 hisCombinations.push(...new_comb);
             }
             if (hisRecurringCards[4] === hisRecurringCards[6] && hisRecurringCards[4] !== hisRecurringCards[0] && hisRecurringCards[5] !== hisRecurringCards[2]) {
-                console.log("Full House");
+                console.log("Dealer have a Full House");
                 const new_comb = combinations.filter(m => m.combination === "Full House");
                 hisCombinations.push(...new_comb);
             };
@@ -397,16 +393,40 @@ const Combinations = (props) => {
     };
 
     ////One Pair, Two Pair, Three Of a Kind, Full House, Four Of a Kind --end
-    if (myCombinations.length) {
-        console.log(myCombinations, "myCombinations");
-    }
-    if (hisCombinations.length) {
-        console.log(hisCombinations, "hisCombinations");
-    }
+
+
+    // if (myCombinations.length && !hisCombinations.length) {
+    //     console.log("I won");
+    // };
+    // if (hisCombinations.length && !myCombinations.length) {
+    //     console.log("Dealer won");
+    // };
+    // if (myCombinations.length && hisCombinations.length) {
+    //     let myCombIdArr = [];
+    //     myCombinations.map(m => myCombIdArr.push(m.id));
+    //     let myMaxNumOfCombIdArr = Math.max.apply(null, myCombIdArr);
+    //     let hisCombIdArr = [];
+    //     hisCombinations.map(m => hisCombIdArr.push(m.id));
+    //     let hisMaxNumOfCombIdArr = Math.max.apply(null, hisCombIdArr);
+
+    //     if (myMaxNumOfCombIdArr > hisMaxNumOfCombIdArr) {
+    //         console.log("I won");
+            
+    //     };
+    //     if (myMaxNumOfCombIdArr < hisMaxNumOfCombIdArr) {
+    //         console.log("Dealer won");
+    //         console.log(hisMaxNumOfCombIdArr);
+    //     };
+    //     if (myMaxNumOfCombIdArr === hisMaxNumOfCombIdArr) {
+    //         console.log(myValues);
+    //         console.log(hisValues);
+    //     };
+    // };
+
 
     return (
         <div>
-            <ResultComponent myCombinations={myCombinations} />
+            <ResultComponent myCombinations={myCombinations} hisCombinations={hisCombinations} />
         </div>
     );
 }
