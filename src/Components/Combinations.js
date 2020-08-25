@@ -117,11 +117,11 @@ const Combinations = (props) => {
         if(lastNumMyDynamicArrayOne === firstNumMyDynamicArrayTwo){
             myDynamicArrays[0].pop();
             myDynamicArrays = [...myDynamicArrays[0].concat(myDynamicArrays[1])];
-        }
+        };
         if(lastNumMyDynamicArrayTwo === firstNumMyDynamicArrayThree){
             myDynamicArrays[1].pop();
             myDynamicArrays = [...myDynamicArrays[1].concat(myDynamicArrays[2])];
-        }
+        };
     };
     let myConcatArrays = [];
     if (myDynamicArrays.length === 2 || myDynamicArrays.length === 3 || myDynamicArrays.length === 4) {
@@ -134,6 +134,7 @@ const Combinations = (props) => {
     if (myDynamicArrays.length >= 5) {
         myDynamicArrays = myDynamicArrays[0].reverse().splice(0, 5).sort();
     };  
+    ////[A,1,2,3,4]Straight Flush
     let myHighCard = 0;
     myResult.map(m=>{if(m.id === 14){myHighCard = 14}});
     if (myDynamicArrays.length === 4) {
@@ -144,9 +145,11 @@ const Combinations = (props) => {
         };
     };
     if (myDynamicArrays.length >= 5) {
+        myDynamicArrays = myDynamicArrays[0].reverse().splice(0, 5).sort();
         console.log("I have a Straight");
         const new_comb = combinations.filter(m => m.combination === "Straight");
         myCombinations.push({ myDynamicArrays, id: new_comb[0].id });
+       
         let myArrforSFcards = [];
         myDynamicArrays.forEach(item => {
             myArrforSFcards.push(myResult.filter(data => data.id === item));
@@ -176,94 +179,7 @@ const Combinations = (props) => {
         };
     };
 
-    // let hisDynamicArrays = [];
-    // let hisIndex = 0;
-    // for (let i = 0; i < hisCardsbyId.length; i++) {
-    //     if (hisCardsbyId[i + 1] - hisCardsbyId[i] !== 1) {
-    //         let sliced = hisCardsbyId.slice(hisIndex, i + 1);
-    //         if (sliced.length > 1) {
-    //             hisDynamicArrays.push(sliced);
-    //         };
-    //         hisIndex = i + 1;
-    //     };
-    // };
-    // console.log(hisDynamicArrays,"hisDynamicArrays 1");
-    // if (hisDynamicArrays.length === 2) {
-    //     let lastNumMyDynamicArrayOne = hisDynamicArrays[0][hisDynamicArrays[0].length - 1];
-    //     let lastNumMyDynamicArrayTwo = hisDynamicArrays[1][0];
-    //     if (lastNumMyDynamicArrayOne === lastNumMyDynamicArrayTwo) {
-    //         hisDynamicArrays[0].pop();
-    //         hisDynamicArrays = [...hisDynamicArrays[0].concat(hisDynamicArrays[1])];
-    //     };
-    // };
-    // console.log(hisDynamicArrays,"hisDynamicArrays 2");
-    // if (hisDynamicArrays.length === 3) {
-    //     let lastNumMyDynamicArrayOne = hisDynamicArrays[0][hisDynamicArrays[0].length - 1];
-    //     let firstNumMyDynamicArrayTwo = hisDynamicArrays[1][0];
-    //     let lastNumMyDynamicArrayTwo = hisDynamicArrays[1][hisDynamicArrays[1].length - 1];
-    //     let firstNumMyDynamicArrayThree = hisDynamicArrays[2][0];
-    //     if (lastNumMyDynamicArrayOne === firstNumMyDynamicArrayTwo && lastNumMyDynamicArrayTwo === firstNumMyDynamicArrayThree) {
-    //         hisDynamicArrays[0].pop();
-    //         hisDynamicArrays[1].pop();
-    //         hisDynamicArrays = [...hisDynamicArrays[0].concat(hisDynamicArrays[1]).concat(hisDynamicArrays[2])];
-    //     };
-    // };
-    // ////[A,1,2,3,4]Straight Flush
-    // console.log(hisDynamicArrays,"hisDynamicArrays 3");
-    // let hisConcatArrays = [];
-    // if (hisDynamicArrays.length === 2 || hisDynamicArrays.length === 3 || hisDynamicArrays.length === 4) {
-    //     for (let i = 0; i < hisDynamicArrays.length; i++) {
-    //         if (hisDynamicArrays[i].length > hisConcatArrays.length) {
-    //             hisDynamicArrays = hisDynamicArrays[i]              
-    //         };         
-    //     };
-    // };
-    // console.log(hisDynamicArrays,"hisDynamicArrays 4");
-    // if (hisDynamicArrays[0].length >= 5) {
-    //     hisDynamicArrays = hisDynamicArrays.reverse().splice(0, 5).sort();
-    // };
-    // let hisHighCard = 0;
-    // hisResult.map(m=>{if(m.id === 14){hisHighCard = 14}});
-    // if (hisDynamicArrays.length === 4) {
-    //     if (hisDynamicArrays[0] === 2 && hisHighCard === 14) {
-    //         console.log("I have a Straight Flush");
-    //         const new_comb = combinations.filter(m => m.combination === "Straight Flush");
-    //         hisCombinations.push({ hisDynamicArrays, id: new_comb[0].id });
-    //     };
-    // };
-
-    // if (hisDynamicArrays.length >= 5) {
-    //     console.log("Dealer have a Straight");
-    //     const new_comb = combinations.filter(m => m.combination === "Straight");
-    //     hisCombinations.push({ hisDynamicArrays, id: new_comb[0].id });
-    //     let hisArrforSFcards = [];
-    //     hisDynamicArrays.forEach(item => {
-    //         hisArrforSFcards.push(hisResult.filter(data => data.id === item));
-    //     });
-    //     let hisCardsForFS = [];
-    //     let hisSuitsForSF = [];
-    //     hisArrforSFcards.map(m => hisCardsForFS.push(...m))
-    //     hisCardsForFS.map(m => hisSuitsForSF.push(m.suit));
-    //     let hisObjForFlush = {};
-    //     for (let i = 0; i < hisSuitsForSF.length; i++) {
-    //         if (hisObjForFlush[hisSuitsForSF[i]]) {
-    //             hisObjForFlush[hisSuitsForSF[i]] += 1;
-    //         } else hisObjForFlush[hisSuitsForSF[i]] = 1;
-    //     };
-    //     let hisArrForFlush = Object.values(hisObjForFlush);
-    //     let hisMaxForFlush = Math.max(...hisArrForFlush);
-    //     let hisMaxNumOfmyDynamicArray = Math.max.apply(null, hisDynamicArrays);
-    //     if (hisMaxForFlush >= 5) {
-    //         console.log("Dealer have a Straight Flush");
-    //         const new_comb = combinations.filter(m => m.combination === "Straight Flush");
-    //         hisCombinations.push({ hisDynamicArrays, id: new_comb[0].id });
-    //         if (hisMaxNumOfmyDynamicArray === 14) {
-    //                 console.log("Dealer have a Royal Flush");
-    //                 const new_comb = combinations.filter(m => m.combination === "Royal Flush");
-    //                 hisCombinations.push({ hisDynamicArrays, id: new_comb[0].id });
-    //         };
-    //     };
-    // };
+    
 
     ////Straight, Straight--Flush, Flush--Royal --end  
 
