@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /*height: 600px;*/
+    position: relative;
 }
 .table{
     width: 960px;
@@ -55,7 +55,7 @@
     position: absolute;
     width: 960px;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 40px;
     z-index: 2;
 }
 .ourCardsBlock{
@@ -78,10 +78,98 @@
     position: absolute;
     width: 960px;
     justify-content: center;
-    margin-top: 360px;
+    margin-top: 350px;
 }
 .backgroundBlock{
     margin-top: initial;
     z-index: 1;
     position: absolute;
+}
+
+
+.dealerWinBlock{
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    top: 0px;
+    left: 0px;
+    right: 0;
+    margin: 0 auto;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #005B13;
+}
+.draw{
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    top: 258px;
+    left: 0px;
+    right: 0;
+    margin: 0 auto;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #005B13;
+}
+.youWinBlock{
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    top: 420px;
+    left: 0px;
+    right: 0;
+    margin: 0 auto;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #005B13;
+}
+.ourBlocks{
+    width: 180px;
+    height: 35px;
+    border: 1px dashed red;
+    border-radius: 5px;
+    border-width: revert;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ourBlocks {
+    animation: blinker 1s linear 3;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0.6;
+    }
+  }
+.outTitle{
+    color : red;
+}
+.pointsBlock{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 450px;
+    right: 0;
+}
+.point{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+.line{
+    width: 2px;
+    height: 70px;
+    background-color: #000;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.pointerDesc{
+    margin-top: 0;
 }

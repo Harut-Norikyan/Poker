@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable no-loop-func */
 import React, { Component } from 'react';
 import spadesLogo from "./SuitsIcon/spade.png";
@@ -6,7 +7,8 @@ import clubsLogo from "./SuitsIcon/club.png";
 import heartsLogo from "./SuitsIcon/heart.png";
 import table from "./SuitsIcon/table.png";
 import Cards from "./Components/Cards";
-import Combinations from "./Components/Combinations"
+import Combinations from "./Components/Combinations";
+
 
 class App extends Component {
   state = {
@@ -63,7 +65,7 @@ class App extends Component {
       },
       {
         key: "A",
-        id: 14 ,
+        id: 14,
       },
     ],
     deck: [],
@@ -74,10 +76,11 @@ class App extends Component {
     ourCardsStepOne: [],
     ourCardsStepTwo: [],
     ourCardsStepThree: [],
+    ourCards: [],
+    stepThree: false,
     round: 0,
     myCardsResult: [],
     hisCardsResult: [],
-    start: false,
   }
 
   componentDidMount() {
@@ -151,7 +154,7 @@ class App extends Component {
         round: round + 1,
         myCardsResult: [],
         hisCardsResult: [],
-        start: false,
+        stepThree: false,
       });
       this.createDeck();
     };
@@ -174,8 +177,7 @@ class App extends Component {
   };
 
   stepThree = () => {
-    let { deck, ourCardsStepTwo, ourCardsStepOne, myCards, hisCards, ourCardsStepThree, myCardsResult, hisCardsResult } = this.state;
-    this.checkingOurCards();
+    let { deck, ourCardsStepTwo, ourCardsStepOne, myCards, hisCards, ourCardsStepThree } = this.state;
     if (ourCardsStepOne.length === 3 && ourCardsStepTwo.length === 1 && !ourCardsStepThree.length) {
       for (let i = 1; i < 2; i++) {
         setTimeout(() => {
@@ -183,19 +185,21 @@ class App extends Component {
           deck = deck.slice(1);
           this.setState({ ourCardsStepThree, deck });
           if (ourCardsStepThree.length === 1) {
-           this.setState({
+            this.setState({
               myCardsResult: [...myCards, ...ourCardsStepOne, ...ourCardsStepTwo, ...ourCardsStepThree],
               hisCardsResult: [...hisCards, ...ourCardsStepOne, ...ourCardsStepTwo, ...ourCardsStepThree],
+              ourCards: [...ourCardsStepOne, ...ourCardsStepTwo, ...ourCardsStepThree],
             });
+            this.checkingOurCards();
           };
         }, i * 500);
       };
-    };
+    };  
   };
 
   checkingOurCards = () => {
     this.setState({
-      start: true,
+      stepThree: true,
     });
   };
 
@@ -206,6 +210,7 @@ class App extends Component {
           <div className="hisCardsBlock blocks">
             <Cards data={this.state.hisCards} />
           </div>
+
           <div className="ourCardsBlock blocks">
             <div className="ourCardsStepOne blocks">
               <Cards data={this.state.ourCardsStepOne} />
