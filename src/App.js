@@ -210,7 +210,6 @@ class App extends Component {
           <div className="hisCardsBlock blocks">
             <Cards data={this.state.hisCards} />
           </div>
-
           <div className="ourCardsBlock blocks">
             <div className="ourCardsStepOne blocks">
               <Cards data={this.state.ourCardsStepOne} />
