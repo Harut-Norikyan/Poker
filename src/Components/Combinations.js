@@ -4,29 +4,36 @@ import CompareResults from "./CompareResults";
 
 const Combinations = (props) => {
     // console.log(props);
-    // const hisCardsbyId = [4, 6, 5, 8, 12, 7, 6].sort((a, b) => a - b);
+    // const hisCardsbyId = [7, 3, 2, 8, 9, 10, 11].sort((a, b) => a - b);
     // let hisResult = [
-    //     { value: "4", suit: "diamonds", id: 4, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "6", suit: "diamonds", id: 6, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "5", suit: "clubs", id: 5, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "8", suit: "clubs", id: 8, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "12", suit: "clubs", id: 12, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "7", suit: "clubs", id: 7, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "6", suit: "clubs", id: 6, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "7", suit: "diamonds", id: 7, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "3", suit: "diamonds", id: 3, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "2", suit: "diamonds", id: 2, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "8", suit: "diamonds", id: 8, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "9", suit: "diamonds", id: 9, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "10", suit: "spades", id: 10, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "11", suit: "spades", id: 11, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
     // ].sort((a, b) => a.id - b.id);
-    // const hisSuits = ["clubs", "clubs", "clubs", "clubs", "clubs", "diamonds", "diamonds"];
+    // // const hisSuits = ["diamonds", "diamonds", "diamonds", "diamonds", "diamonds", "spades", "spades"];
+    // const hisSuits = ["sxs", "dfsf", "rtyrt", "rtyrty", "fhfg", "sfdf", "sdfdf"];
 
-    // const myCardsbyId = [4, 6, 5, 8, 12, 7, 6].sort((a, b) => a - b);
+    // const hisCards = [{ id: 7 }, { id: 3 }].sort((a, b) => a - b);;
+
+    // const myCardsbyId = [5, 12, 2, 8, 9, 10, 11].sort((a, b) => a - b);
     // let myResult = [
-    //     { value: "4", suit: "clubs", id: 4, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "4", suit: "clubs", id: 4, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "5", suit: "clubs", id: 5, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "2", suit: "clubs", id: 2, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "8", suit: "spades", id: 8, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "13", suit: "clubs", id: 13, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "1", suit: "diamonds", id: 1, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "5", suit: "diamonds", id: 5, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "12", suit: "diamonds", id: 12, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "2", suit: "diamonds", id: 2, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "8", suit: "diamonds", id: 8, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "9", suit: "diamonds", id: 9, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "10", suit: "spades", id: 10, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "J", suit: "spades", id: 11, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
     // ].sort((a, b) => a.id - b.id);
-    // const mySuits = ["", "", "", "", "spades", "diamonds", "clubs"];
+    // // const mySuits = ["diamonds", "diamonds", "diamonds", "diamonds", "diamonds", "spades", "spades"];
+    // const mySuits = ["sxs", "dfsf", "rtyrt", "rtyrty", "fhfg", "sfdf", "sdfdf"];
+    // const myCards = [{ id: 5 }, { id: 12 }].sort((a, b) => a - b);;
+
+    // const ourCards = [8, 9, 11, 10, 2].sort((a, b) => a - b);
 
 
     const myResult = props.data.myCardsResult.sort((a, b) => a.id - b.id);
@@ -82,7 +89,7 @@ const Combinations = (props) => {
     ];
     let myCombinations = [];
     let hisCombinations = [];
-    const [stepThree, setStepThree] = useState(false);
+    const [stepThree, setStepThree] = useState(true);
 
     //// Straight, Straight--Flush, Flush--Royal
     //// ete unenq krknvoc qarter bayc mer combinations karox e linel === Straight, Straight--Flush, Flush--Royal
@@ -133,13 +140,21 @@ const Combinations = (props) => {
             };
         };
     };
-    let myConcatArrays = [];
+    // let myConcatArrays = [];
+    // if (myDynamicArrays.length === 2 || myDynamicArrays.length === 3 || myDynamicArrays.length === 4) {
+    //     for (let i = 0; i < myDynamicArrays.length; i++) {
+    //         if (myDynamicArrays[i].length > myConcatArrays.length) {
+    //             myDynamicArrays = myDynamicArrays[i];
+    //         };
+    //     };
+    // };
+
     if (myDynamicArrays.length === 2 || myDynamicArrays.length === 3 || myDynamicArrays.length === 4) {
-        for (let i = 0; i < myDynamicArrays.length; i++) {
-            if (myDynamicArrays[i].length > myConcatArrays.length) {
-                myDynamicArrays = myDynamicArrays[i];
-            };
-        };
+        let lengths = myDynamicArrays.map((a)=>a.length );
+        lengths = Math.max.apply(null, lengths);    
+        let myDynamicFilter = [];
+        myDynamicFilter.push(myDynamicArrays.filter(m=>m.length === lengths));
+        myDynamicArrays = myDynamicFilter[0];
     };
     if (myDynamicArrays.length === 1) {
         myDynamicArrays = myDynamicArrays[0];
@@ -164,7 +179,7 @@ const Combinations = (props) => {
 
         myArrforSFcards.map(m => myCardsForFS.push(...m));  //[[{}],[{}],[{}]...]
         myCardsForFS.map(m => mySuitsForSF.push(m.suit));   //[{},{},{}...]
-        
+
         let myObjForFlush = {};                       //krknvox suit-neri qanak end
         for (let i = 0; i < mySuitsForSF.length; i++) {
             if (myObjForFlush[mySuitsForSF[i]]) {
@@ -265,14 +280,22 @@ const Combinations = (props) => {
             };
         };
     };
-    let hisConcatArrays = [];
+    // if (hisDynamicArrays.length === 2 || hisDynamicArrays.length === 3 || hisDynamicArrays.length === 4) {
+    //     for (let i = 0; i < hisDynamicArrays.length; i++) {
+    //         if (hisDynamicArrays[i].length > hisConcatArrays.length) {
+    //             hisDynamicArrays = hisDynamicArrays[i]
+    //         };
+    //     };
+    // };
+
     if (hisDynamicArrays.length === 2 || hisDynamicArrays.length === 3 || hisDynamicArrays.length === 4) {
-        for (let i = 0; i < hisDynamicArrays.length; i++) {
-            if (hisDynamicArrays[i].length > hisConcatArrays.length) {
-                hisDynamicArrays = hisDynamicArrays[i]
-            };
-        };
+        let lengths = hisDynamicArrays.map((a)=>a.length );
+        lengths = Math.max.apply(null, lengths);    
+        let myDynamicFilter = [];
+        myDynamicFilter.push(hisDynamicArrays.filter(m=>m.length === lengths));
+        hisDynamicArrays = myDynamicFilter[0];
     };
+
     if (hisDynamicArrays.length === 1) {
         hisDynamicArrays = hisDynamicArrays[0];
     };
@@ -580,9 +603,9 @@ const Combinations = (props) => {
         console.log(hisCombinations, "hisCombinations");
     };
     if (props.data.stepThree) {
-       setTimeout(()=>{
-        setStepThree(true)
-       },500)
+        setTimeout(() => {
+            setStepThree(true)
+        }, 500)
     };
 
     return (
@@ -595,6 +618,9 @@ const Combinations = (props) => {
                 myCards={props.data.myCards}
                 hisCards={props.data.hisCards}
                 ourCards={props.data.ourCards}
+                // myCards={myCards}
+                // hisCards={hisCards}
+                // ourCards={ourCards}
                 stepThree={stepThree}
             />
         </div>

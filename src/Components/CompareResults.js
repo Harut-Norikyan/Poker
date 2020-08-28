@@ -73,7 +73,7 @@ const CompareResults = (props) => {
                                 if (element === item.value) {
                                     hisIds.push(item.id);
                                     maxOfHisIds = Math.max.apply(null, hisIds);
-                                }
+                                };
                             });
                         });
                     };
@@ -81,27 +81,59 @@ const CompareResults = (props) => {
                 if (maxOfMyIds > maxOfHisIds) {
                     console.log("You Win");
                     youWin = true;
-                }
+                };
                 if (maxOfMyIds < maxOfHisIds) {
                     console.log("Dealer win");
                     dealerWin = true;
-                }
+                };
                 if (maxOfMyIds === maxOfHisIds) {
-                    console.log("????????????????");
-                }
+                    if (myMaxNumOfCombIdArr === 2 || myMaxNumOfCombIdArr === 4) {
+                        ////ete combinations irar === en mnacac tvern enq stugum
+                        let myCardsById = [];
+                        props.myCards.filter(f => myCardsById.push(f.id));
+                        myCardsById = myCardsById.filter(m => m !== maxOfMyIds);
+                        let myHighCardByMyCards = 0;
+                        if (myCardsById.length) {
+                            myHighCardByMyCards = Math.max.apply(null, myCardsById);
+                            ////stacanq im amenabarcr tiv@ vor@ combinationi het kap chuni
+                        };
+                        let hisCardsById = [];
+                        props.hisCards.filter(f => hisCardsById.push(f.id));
+                        hisCardsById = hisCardsById.filter(m => m !== maxOfMyIds);
+                        let hisHighCardByHisCards = 0;
+                        if (hisCardsById.length) {
+                            hisHighCardByHisCards = Math.max.apply(null, hisCardsById);
+                            ////stacanq dealeri amenabarcr tiv@ vor@ combinationi het kap chuni
+                        };
+                        if (myHighCardByMyCards > hisHighCardByHisCards) {
+                            console.log("You Win");
+                            youWin = true;
+                        };
+                        if (myHighCardByMyCards < hisHighCardByHisCards) {
+                            console.log("Dealer Win");
+                            dealerWin = true;
+                        };
+                        if (myHighCardByMyCards === hisHighCardByHisCards) {
+                            console.log("Draw");
+                            draw = true;
+                        };
+                    };
 
+
+                };
             };
             //// ete erkuss el unenq (Flush(6))
             if (myMaxNumOfCombIdArr === 6) {
                 let myArr = [];
                 let arrForMyId = [];
                 let maxIdFromMyFlush = 0;
+                let idFromMyFlush = []; ///flush combinactions cards [{},{}]
                 props.myCombinations.map(m => {
                     if (m.id === myMaxNumOfCombIdArr) {
                         myArr = m.myFlushElements;
                         let myResult = myArr.filter((v, i, a) => a.indexOf(v) === i)
                             .map(v => myArr.filter(x => x.suit === v.suit));
-                        let idFromMyFlush = myResult.find(m => m.length >= 5);
+                        idFromMyFlush = myResult.find(m => m.length >= 5);
                         idFromMyFlush.filter(m => arrForMyId.push(m.id))
                         maxIdFromMyFlush = Math.max.apply(null, arrForMyId);
                     };
@@ -110,12 +142,13 @@ const CompareResults = (props) => {
                 let hisArr = [];
                 let arrForHisId = [];
                 let maxIdFromHisFlush = 0;
+                let idFromHisFlush = [];   ///flush combinactions cards [{},{}]
                 props.hisCombinations.map(m => {
                     if (m.id === myMaxNumOfCombIdArr) {
                         hisArr = m.hisFlushElements;
                         let hisResult = hisArr.filter((v, i, a) => a.indexOf(v) === i)
                             .map(v => hisArr.filter(x => x.suit === v.suit));
-                        let idFromHisFlush = hisResult.find(m => m.length >= 5);
+                        idFromHisFlush = hisResult.find(m => m.length >= 5);
                         idFromHisFlush.filter(m => arrForHisId.push(m.id))
                         maxIdFromHisFlush = Math.max.apply(null, arrForHisId);
                     };
@@ -129,7 +162,60 @@ const CompareResults = (props) => {
                     dealerWin = true;
                 };
                 if (maxIdFromMyFlush === maxIdFromHisFlush) {
-                    console.log("????????????????");
+                    let myFlushArr = [];
+                    idFromMyFlush.filter(m => myFlushArr.push(m.id));
+                    myFlushArr.reverse();
+                    myFlushArr = myFlushArr.slice(0, 5) ////stacanq flush combinationsi idner@ [1,2,6,8,7]
+                    let myCardsById = [];
+                    props.myCards.filter(f => myCardsById.push(f.id));////im qarteri idner@ [4,5]
+                    let myCoincidences = [];
+                    myCardsById.forEach(item => {
+                        myFlushArr.find(m => {if(m === item){myCoincidences.push(m)}});
+                    });
+                    let myMaxNumCoincidences = 0;//// es en tinv e vor@ ham@nknum e combinationsi tverin
+                    let myMinNumCoincidences = 0;//// es erkrrord ham@nknox tivn e combinationsi tverin
+                    if(myCoincidences.length){
+                        myMaxNumCoincidences = Math.max.apply(null, myCoincidences);
+                        myMinNumCoincidences = Math.min.apply(null, myCoincidences);
+                    };
+                    ////
+                    let hisFlushArr = [];
+                    idFromMyFlush.filter(m => hisFlushArr.push(m.id));
+                    hisFlushArr.reverse();
+                    hisFlushArr = hisFlushArr.slice(0, 5) ////stacanq flush combinationsi idner@ [1,2,6,8,7]
+                    let hisCardsById = [];
+                    props.hisCards.filter(f => hisCardsById.push(f.id));////im qarteri idner@ [4,5]
+                    let hisCoincidences = [];
+                    hisCardsById.forEach(item => {
+                        hisFlushArr.find(m => {if(m === item){hisCoincidences.push(m)}});
+                    });
+                    let hisMaxNumCoincidences = 0;//// es en tinv e vor@ ham@nknum e combinationsi tverin
+                    let hisMinNumCoincidences = 0;//// es erkrrord ham@nknox tivn e combinationsi tverin
+                    if(hisCoincidences.length){
+                        hisMaxNumCoincidences = Math.max.apply(null, hisCoincidences);
+                        hisMinNumCoincidences = Math.min.apply(null, hisCoincidences);
+                    };
+                    if (myMaxNumCoincidences > hisMaxNumCoincidences) {
+                        console.log("You Win");
+                        youWin = true;
+                    };
+                    if (myMaxNumCoincidences < hisMaxNumCoincidences) {
+                        console.log("Dealer win");
+                        dealerWin = true;
+                    };
+                    if (myMaxNumCoincidences === hisMaxNumCoincidences && myMinNumCoincidences > hisMinNumCoincidences) {
+                        console.log("You win");
+                        youWin = true;
+                    };
+                    if (myMaxNumCoincidences === hisMaxNumCoincidences && myMinNumCoincidences < hisMinNumCoincidences) {
+                        console.log("Dealer win");
+                        dealerWin = true;
+                    };
+                    if (myMaxNumCoincidences === hisMaxNumCoincidences && myMinNumCoincidences === hisMinNumCoincidences) {
+                        console.log("Draw");
+                        draw = true;
+                    };
+                    
                 };
             };
 
@@ -169,7 +255,6 @@ const CompareResults = (props) => {
                         });
                     };
                 });
-
                 if (maxOfMyIds > maxOfHisIds) {
                     console.log("You Win");
                     youWin = true;
@@ -179,7 +264,56 @@ const CompareResults = (props) => {
                     dealerWin = true;
                 }
                 if (maxOfMyIds === maxOfHisIds) {
-                    console.log("????????????????");
+
+                    let myCardsById = [];
+                    props.myCards.filter(f => myCardsById.push(f.id));////im qarteri idner@ [4,5]
+                    let myCoincidences = [];
+                    myCardsById.forEach(item => {
+                        myArr.find(m => {if(m === item){myCoincidences.push(m)}});
+                    });
+                    let myMaxNumCoincidences = 0;//// es en tinv e vor@ ham@nknum e combinationsi tverin
+                    let myMinNumCoincidences = 0;//// es erkrrord ham@nknox tivn e combinationsi tverin
+                    if(myCoincidences.length){
+                        myMaxNumCoincidences = Math.max.apply(null, myCoincidences);
+                        myMinNumCoincidences = Math.min.apply(null, myCoincidences);
+                    };
+                    ///////
+                    let hisCardsById = [];
+                    props.hisCards.filter(f => hisCardsById.push(f.id));////im qarteri idner@ [4,5]
+                    let hisCoincidences = [];
+                    hisCardsById.forEach(item => {
+                        hisArr.find(m => {if(m === item){hisCoincidences.push(m)}});
+                    });
+                    let hisMaxNumCoincidences = 0;//// es en tinv e vor@ ham@nknum e combinationsi tverin
+                    let hisMinNumCoincidences = 0;//// es erkrrord ham@nknox tivn e combinationsi tverin
+                    if(hisCoincidences.length){
+                        hisMaxNumCoincidences = Math.max.apply(null, hisCoincidences);
+                        hisMinNumCoincidences = Math.min.apply(null, hisCoincidences);
+                    };                   
+                    if(hisCoincidences.length){
+                        hisMaxNumCoincidences = Math.max.apply(null, hisCoincidences);
+                        hisMinNumCoincidences = Math.min.apply(null, hisCoincidences);
+                    };
+                    if (myMaxNumCoincidences > hisMaxNumCoincidences) {
+                        console.log("You Win");
+                        youWin = true;
+                    };
+                    if (myMaxNumCoincidences < hisMaxNumCoincidences) {
+                        console.log("Dealer win");
+                        dealerWin = true;
+                    };
+                    if (myMaxNumCoincidences === hisMaxNumCoincidences && myMinNumCoincidences > hisMinNumCoincidences) {
+                        console.log("You win");
+                        youWin = true;
+                    };
+                    if (myMaxNumCoincidences === hisMaxNumCoincidences && myMinNumCoincidences < hisMinNumCoincidences) {
+                        console.log("Dealer win");
+                        dealerWin = true;
+                    };
+                    if (myMaxNumCoincidences === hisMaxNumCoincidences && myMinNumCoincidences === hisMinNumCoincidences) {
+                        console.log("Draw");
+                        draw = true;
+                    };
                 }
             };
 
@@ -280,7 +414,7 @@ const CompareResults = (props) => {
                 if (maxOfMyIds === maxOfHisIds) {
                     console.log("Draw");
                     draw = true;
-                };    
+                };
             };
             ////ete erkuss el unenq Two Pairs
             if (myMaxNumOfCombIdArr === 3) {
@@ -339,7 +473,39 @@ const CompareResults = (props) => {
                     dealerWin = true;
                 };
                 if (maxOfMyIds === maxOfHisIds && minOfMyIds === minOfHisIds) {
-                    console.log("??????????????????");
+                    let myCardsById = [];
+                    props.myCards.filter(f => myCardsById.push(f.id));
+                    myCardsById = myCardsById.filter(m => m !== maxOfMyIds);
+                    myCardsById = myCardsById.filter(m => m !== minOfMyIds);
+                    let myHighCardByMyCards = 0;
+                    if (myCardsById.length) {
+                        myHighCardByMyCards = Math.max.apply(null, myCardsById);
+                        ////stacanq im amenabarcr tiv@ vor@ combinationi het kap chuni
+                    };
+                    console.log(myHighCardByMyCards, "myHighCardByMyCards");
+
+                    let hisCards = [];
+                    props.hisCards.filter(f => hisCards.push(f.id));
+                    hisCards = hisCards.filter(m => m !== maxOfMyIds);
+                    hisCards = hisCards.filter(m => m !== minOfMyIds);
+                    let hisHighCardByHisCards = 0;
+                    if (hisCards.length) {
+                        hisHighCardByHisCards = Math.max.apply(null, hisCards);
+                        ////stacanq im amenabarcr tiv@ vor@ combinationi het kap chuni
+                    };
+                    console.log(hisHighCardByHisCards, "hisHighCardByHisCards");
+                    if (myHighCardByMyCards > hisHighCardByHisCards) {
+                        console.log("You Win");
+                        youWin = true;
+                    };
+                    if (myHighCardByMyCards < hisHighCardByHisCards) {
+                        console.log("Dealer Win");
+                        dealerWin = true;
+                    };
+                    if (myHighCardByMyCards === hisHighCardByHisCards) {
+                        console.log("Draw");
+                        draw = true;
+                    };
                 };
             };
         };
@@ -361,31 +527,31 @@ const CompareResults = (props) => {
 
         ////ete im high card@ aveli mec e dealeri high cardic
         if (myHighCardFromMyCards > hisHidhCardFromHisCards &&
-             typeof(myHighCardFromMyCards) === "number" &&
-             myHighCardFromMyCards === !Infinity
-             ) {
+            typeof (myHighCardFromMyCards) === "number" &&
+            myHighCardFromMyCards === !Infinity
+        ) {
             console.log("You Win");
             youWin = true;
         };
         if (myHighCardFromMyCards < hisHidhCardFromHisCards &&
-             typeof(myHighCardFromMyCards) === "number" &&
-             myHighCardFromMyCards === !Infinity
-             ) {
+            typeof (myHighCardFromMyCards) === "number" &&
+            myHighCardFromMyCards === !Infinity
+        ) {
             console.log("Dealer win");
             dealerWin = true;
         };
         if (myHighCardFromMyCards === hisHidhCardFromHisCards &&
             myMinCardFromMyCards > hisMinCardFromHisCards &&
-            typeof(myHighCardFromMyCards) === "number" &&
+            typeof (myHighCardFromMyCards) === "number" &&
             myHighCardFromMyCards === !Infinity &&
             myMinCardFromMyCards === !Infinity
-            ) {
+        ) {
             console.log("You Win");
             youWin = true;
         };
         if (myHighCardFromMyCards === hisHidhCardFromHisCards &&
             myMinCardFromMyCards < hisMinCardFromHisCards &&
-            typeof(myHighCardFromMyCards) === "number" &&
+            typeof (myHighCardFromMyCards) === "number" &&
             myHighCardFromMyCards === !Infinity &&
             myMinCardFromMyCards === !Infinity) {
             console.log("Dealer win");
@@ -393,7 +559,7 @@ const CompareResults = (props) => {
         };
         if (myHighCardFromMyCards === hisHidhCardFromHisCards &&
             myMinCardFromMyCards === hisMinCardFromHisCards &&
-            typeof(myHighCardFromMyCards) === "number" &&
+            typeof (myHighCardFromMyCards) === "number" &&
             myHighCardFromMyCards === !Infinity &&
             myMinCardFromMyCards === !Infinity
         ) {

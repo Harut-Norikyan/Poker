@@ -36,14 +36,12 @@ class ResultComponent extends Component {
     };
 
     dealerPointsFunc=()=> {
-        console.log("dealerPointsFunc ashxatav");
         this.setState({
             dealerPoints: this.state.dealerPoints + 1,
         });
     };
 
     myPointsFunc=()=> {
-        console.log("myPointsFunc ashxatav");
         this.setState({
             myPoints: this.state.myPoints + 1,
         });
@@ -75,7 +73,7 @@ class ResultComponent extends Component {
                 {dealerWin ? <div>{dealerWinComponent}</div> : null}
                 {draw ? <div>{drawComponent}</div> : null}
                 {youWin ? <div>{youWinComponent}</div> : null}
-                <div className="pointsBlock">
+                {/* <div className="pointsBlock">
                     <div className="point">
                         <h2 className="pointTitle">Your Points</h2>
                         <p className="pointerDesc">{myPoints}</p>
@@ -85,7 +83,7 @@ class ResultComponent extends Component {
                         <h2 className="pointTitle">Dealer Points</h2>
                         <p className="pointerDesc">{dealerPoints}</p>
                     </div>
-                </div>
+                </div> */}
             </div>
         )
     }
