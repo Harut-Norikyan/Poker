@@ -89,7 +89,7 @@ const Combinations = (props) => {
     ];
     let myCombinations = [];
     let hisCombinations = [];
-    const [stepThree, setStepThree] = useState(true);
+    const [stepThree, setStepThree] = useState(false);
 
     //// Straight, Straight--Flush, Flush--Royal
     //// ete unenq krknvoc qarter bayc mer combinations karox e linel === Straight, Straight--Flush, Flush--Royal
@@ -596,12 +596,20 @@ const Combinations = (props) => {
     };
     //One Pair, Two Pairs, Three Of a Kind, Full House, Four Of a Kind   --end
 
+    ////poxancum enq haxtox combinationsi anun@
+    let myCombMaxNum = 0;
+    let myCombName = "";
     if (myCombinations.length) {
-        console.log(myCombinations, "myCombinations");
+        myCombMaxNum = Math.max.apply(Math, myCombinations.map((m)=> m.id));
+        combinations.filter(m=>{if(myCombMaxNum === m.id){myCombName = m.combination}});
     };
+    let hisCombMaxNum = 0;
+    let hisCombName = "";
     if (hisCombinations.length) {
-        console.log(hisCombinations, "hisCombinations");
+        hisCombMaxNum = Math.max.apply(Math, hisCombinations.map((m)=> m.id));
+        combinations.filter(m=>{if(hisCombMaxNum === m.id){hisCombName = m.combination}})
     };
+
     if (props.data.stepThree) {
         setTimeout(() => {
             setStepThree(true)
@@ -622,6 +630,8 @@ const Combinations = (props) => {
                 // hisCards={hisCards}
                 // ourCards={ourCards}
                 stepThree={stepThree}
+                myCombName={myCombName}
+                hisCombName={hisCombName}
             />
         </div>
     );

@@ -173,3 +173,40 @@
 .pointerDesc{
     margin-top: 0;
 }
+.yourCombBlock{
+    position: absolute;
+    width: 170px;
+    height: 50px;
+    top: 420px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #005B13; */
+    left: 210px;
+}
+.dealerCombBlock{
+    position: absolute;
+    width: 170px;
+    height: 50px;
+    top: 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #005B13; */
+    left: 210px;
+}
+.combBlockItem{
+    width: 180px;
+    height: 35px;
+    border: 1px dashed goldenrod;
+    border-radius: 5px;
+    border-width: revert;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.combTitle{
+    color:goldenrod;
+}
