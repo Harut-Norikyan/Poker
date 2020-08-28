@@ -1,3 +1,5 @@
+////nkarelu block
+
 import React, { Component } from "react";
 
 class ResultComponent extends Component {
@@ -102,12 +104,12 @@ class ResultComponent extends Component {
                 {/* <div className="pointsBlock">
                     <div className="point">
                         <h2 className="pointTitle">Your Points</h2>
-                        <p className="pointerDesc">{this.state.yourPoints}</p>
+                        <p className="pointerDesc">{this.props.yourPoints}</p>
                     </div>
                     <div className="line" />
                     <div className="point">
                         <h2 className="pointTitle">Dealer Points</h2>
-                        <p className="pointerDesc">{this.state.dealerPoints}</p>
+                        <p className="pointerDesc">{this.props.dealerPoints}</p>
                     </div>
                 </div> */}
 

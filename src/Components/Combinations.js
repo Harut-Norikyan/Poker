@@ -1,3 +1,4 @@
+////combinations stanalu block
 /* eslint-disable array-callback-return */
 import React, { useState } from 'react';
 import CompareResults from "./CompareResults";
