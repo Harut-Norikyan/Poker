@@ -7,8 +7,8 @@ class ResultComponent extends Component {
         youWin: false,
         dealerWin: false,
         draw: false,
-        yourCombName: '',
-        hisCombName: '',
+        yourCombName: "",
+        hisCombName: "",
     };
 
     componentDidUpdate(prevProps) {
