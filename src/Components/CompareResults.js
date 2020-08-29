@@ -8,19 +8,16 @@ const CompareResults = (props) => {
     let youWin = false;
     let dealerWin = false;
     let draw = false;
-    // let yourPoints = 0;
-    // let dealerPoints = 0;
-
 
     ////ese menak es unem combination
     if (props.myCombinations.length && !props.hisCombinations.length && props.stepThree) {
         console.log("You Win");
-        youWin = true; 
+        youWin = true;
     };
     ////ese menak dealer@ unem combination
     if (props.hisCombinations.length && !props.myCombinations.length && props.stepThree) {
         console.log("Dealer win");
-        dealerWin = true; 
+        dealerWin = true;
     };
 
     ////ete erkuss el unenq combination (id-neri hamematutyun)
@@ -35,12 +32,12 @@ const CompareResults = (props) => {
         ////ete im combinations-i id > dealeri combinations-i id-ic    
         if (myMaxNumOfCombIdArr > hisMaxNumOfCombIdArr) {
             console.log("You Win");
-            youWin = true; 
+            youWin = true;
         };
         ////ete im combinations-i id < dealeri combinations-i id-ic  
         if (myMaxNumOfCombIdArr < hisMaxNumOfCombIdArr) {
             console.log("Dealer win");
-            dealerWin = true; 
+            dealerWin = true;
         };
 
         //// ete erkusis combinations-i id irar === e (ete erkuss el unenq nuyn combinations)
@@ -84,11 +81,11 @@ const CompareResults = (props) => {
                 });
                 if (maxOfMyIds > maxOfHisIds) {
                     console.log("You Win");
-                    youWin = true; 
+                    youWin = true;
                 };
                 if (maxOfMyIds < maxOfHisIds) {
                     console.log("Dealer win");
-                    dealerWin = true; 
+                    dealerWin = true;
                 };
                 if (maxOfMyIds === maxOfHisIds) {
                     if (myMaxNumOfCombIdArr === 2 || myMaxNumOfCombIdArr === 4) {
@@ -111,11 +108,11 @@ const CompareResults = (props) => {
                         };
                         if (myHighCardByMyCards > hisHighCardByHisCards) {
                             console.log("You Win");
-                            youWin = true; 
+                            youWin = true;
                         };
                         if (myHighCardByMyCards < hisHighCardByHisCards) {
                             console.log("Dealer Win");
-                            dealerWin = true; 
+                            dealerWin = true;
                         };
                         if (myHighCardByMyCards === hisHighCardByHisCards) {
                             console.log("Draw");
@@ -159,11 +156,11 @@ const CompareResults = (props) => {
                 });
                 if (maxIdFromMyFlush > maxIdFromHisFlush) {
                     console.log("You Win");
-                    youWin = true; 
+                    youWin = true;
                 };
                 if (maxIdFromMyFlush < maxIdFromHisFlush) {
                     console.log("Dealer win");
-                    dealerWin = true; 
+                    dealerWin = true;
                 };
                 if (maxIdFromMyFlush === maxIdFromHisFlush) {
                     let myFlushArr = [];
@@ -201,25 +198,24 @@ const CompareResults = (props) => {
                     };
                     if (myMaxNumCoincidences > hisMaxNumCoincidences) {
                         console.log("You Win");
-                        youWin = true; 
+                        youWin = true;
                     };
                     if (myMaxNumCoincidences < hisMaxNumCoincidences) {
                         console.log("Dealer win");
-                        dealerWin = true; 
+                        dealerWin = true;
                     };
                     if (myMaxNumCoincidences === hisMaxNumCoincidences && myMinNumCoincidences > hisMinNumCoincidences) {
                         console.log("You win");
-                        youWin = true; 
+                        youWin = true;
                     };
                     if (myMaxNumCoincidences === hisMaxNumCoincidences && myMinNumCoincidences < hisMinNumCoincidences) {
                         console.log("Dealer win");
-                        dealerWin = true; 
+                        dealerWin = true;
                     };
                     if (myMaxNumCoincidences === hisMaxNumCoincidences && myMinNumCoincidences === hisMinNumCoincidences) {
                         console.log("Draw");
                         draw = true;
                     };
-
                 };
             };
 
@@ -261,11 +257,11 @@ const CompareResults = (props) => {
                 });
                 if (maxOfMyIds > maxOfHisIds) {
                     console.log("You Win");
-                    youWin = true; 
+                    youWin = true;
                 }
                 if (maxOfMyIds < maxOfHisIds) {
                     console.log("Dealer win");
-                    dealerWin = true; 
+                    dealerWin = true;
                 }
                 if (maxOfMyIds === maxOfHisIds) {
 
@@ -300,19 +296,19 @@ const CompareResults = (props) => {
                     };
                     if (myMaxNumCoincidences > hisMaxNumCoincidences) {
                         console.log("You Win");
-                        youWin = true; 
+                        youWin = true;
                     };
                     if (myMaxNumCoincidences < hisMaxNumCoincidences) {
                         console.log("Dealer win");
-                        dealerWin = true; 
+                        dealerWin = true;
                     };
                     if (myMaxNumCoincidences === hisMaxNumCoincidences && myMinNumCoincidences > hisMinNumCoincidences) {
                         console.log("You win");
-                        youWin = true; 
+                        youWin = true;
                     };
                     if (myMaxNumCoincidences === hisMaxNumCoincidences && myMinNumCoincidences < hisMinNumCoincidences) {
                         console.log("Dealer win");
-                        dealerWin = true; 
+                        dealerWin = true;
                     };
                     if (myMaxNumCoincidences === hisMaxNumCoincidences && myMinNumCoincidences === hisMinNumCoincidences) {
                         console.log("Draw");
@@ -338,8 +334,8 @@ const CompareResults = (props) => {
                 props.values.filter(item => {
                     if (item.key === myMost[0]) {
                         highCardForMyarr.push(item.id)
-                    }
-                })
+                    };
+                });
                 let myHighCardFh = Math.max.apply(null, highCardForMyarr);
 
                 let hisArr = [];
@@ -356,18 +352,18 @@ const CompareResults = (props) => {
                 let highCardForHisarr = [];
                 props.values.filter(item => {
                     if (item.key === hisMost[0]) {
-                        highCardForHisarr.push(item.id)
+                        highCardForHisarr.push(item.id);
                     };
                 });
                 let hisHighCardFh = Math.max.apply(null, highCardForHisarr);
 
                 if (myHighCardFh > hisHighCardFh) {
                     console.log("You Win");
-                    youWin = true; 
+                    youWin = true;
                 };
                 if (myHighCardFh < hisHighCardFh) {
                     console.log("Dealer win");
-                    dealerWin = true; 
+                    dealerWin = true;
                 };
 
             };
@@ -384,7 +380,7 @@ const CompareResults = (props) => {
                                 if (element === item.value) {
                                     myIds.push(item.id);
                                     maxOfMyIds = Math.max.apply(null, myIds);
-                                }
+                                };
                             });
                         });
                     };
@@ -401,7 +397,7 @@ const CompareResults = (props) => {
                                 if (element === item.value) {
                                     hisIds.push(item.id);
                                     maxOfHisIds = Math.max.apply(null, hisIds);
-                                }
+                                };
                             });
                         });
                     };
@@ -409,11 +405,11 @@ const CompareResults = (props) => {
 
                 if (maxOfMyIds > maxOfHisIds) {
                     console.log("You Win");
-                    youWin = true; 
+                    youWin = true;
                 };
                 if (maxOfMyIds < maxOfHisIds) {
                     console.log("Dealer win");
-                    dealerWin = true; 
+                    dealerWin = true;
                 };
                 if (maxOfMyIds === maxOfHisIds) {
                     console.log("Draw");
@@ -435,7 +431,7 @@ const CompareResults = (props) => {
                                     myIds.push(item.id);
                                     maxOfMyIds = Math.max.apply(null, myIds);
                                     minOfMyIds = Math.min.apply(null, myIds);
-                                }
+                                };
                             });
                         });
                     };
@@ -454,7 +450,7 @@ const CompareResults = (props) => {
                                     hisIds.push(item.id);
                                     maxOfHisIds = Math.max.apply(null, hisIds);
                                     minOfHisIds = Math.min.apply(null, hisIds);
-                                }
+                                };
                             });
                         });
                     };
@@ -462,19 +458,19 @@ const CompareResults = (props) => {
 
                 if (maxOfMyIds > maxOfHisIds) {
                     console.log("You Win");
-                    youWin = true; 
+                    youWin = true;
                 };
                 if (maxOfMyIds < maxOfHisIds) {
                     console.log("Dealer win");
-                    dealerWin = true; 
+                    dealerWin = true;
                 };
                 if (maxOfMyIds === maxOfHisIds && minOfMyIds > minOfHisIds) {
                     console.log("You Win");
-                    youWin = true; 
+                    youWin = true;
                 };
                 if (maxOfMyIds === maxOfHisIds && minOfMyIds < minOfHisIds) {
                     console.log("Dealer win");
-                    dealerWin = true; 
+                    dealerWin = true;
                 };
                 if (maxOfMyIds === maxOfHisIds && minOfMyIds === minOfHisIds) {
                     let myCardsById = [];
@@ -500,11 +496,11 @@ const CompareResults = (props) => {
                     console.log(hisHighCardByHisCards, "hisHighCardByHisCards");
                     if (myHighCardByMyCards > hisHighCardByHisCards) {
                         console.log("You Win");
-                        youWin = true; 
+                        youWin = true;
                     };
                     if (myHighCardByMyCards < hisHighCardByHisCards) {
                         console.log("Dealer Win");
-                        dealerWin = true; 
+                        dealerWin = true;
                     };
                     if (myHighCardByMyCards === hisHighCardByHisCards) {
                         console.log("Draw");
@@ -535,14 +531,14 @@ const CompareResults = (props) => {
             myHighCardFromMyCards === !Infinity
         ) {
             console.log("You Win");
-            youWin = true; 
+            youWin = true;
         };
         if (myHighCardFromMyCards < hisHidhCardFromHisCards &&
             typeof (myHighCardFromMyCards) === "number" &&
             myHighCardFromMyCards === !Infinity
         ) {
             console.log("Dealer win");
-            dealerWin = true; 
+            dealerWin = true;
         };
         if (myHighCardFromMyCards === hisHidhCardFromHisCards &&
             myMinCardFromMyCards > hisMinCardFromHisCards &&
@@ -551,7 +547,7 @@ const CompareResults = (props) => {
             myMinCardFromMyCards === !Infinity
         ) {
             console.log("You Win");
-            youWin = true; 
+            youWin = true;
         };
         if (myHighCardFromMyCards === hisHidhCardFromHisCards &&
             myMinCardFromMyCards < hisMinCardFromHisCards &&
@@ -559,7 +555,7 @@ const CompareResults = (props) => {
             myHighCardFromMyCards === !Infinity &&
             myMinCardFromMyCards === !Infinity) {
             console.log("Dealer win");
-            dealerWin = true; 
+            dealerWin = true;
         };
         if (myHighCardFromMyCards === hisHidhCardFromHisCards &&
             myMinCardFromMyCards === hisMinCardFromHisCards &&
@@ -583,8 +579,8 @@ const CompareResults = (props) => {
                 draw={draw}
                 myCombName={props.myCombName}
                 hisCombName={props.hisCombName}
-                // yourPoints={yourPoints}
-                // dealerPoints={dealerPoints}
+            // yourPoints={yourPoints}
+            // dealerPoints={dealerPoints}
             />
         </div>
     );

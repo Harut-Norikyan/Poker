@@ -81,7 +81,7 @@ class App extends Component {
     round: 0,
     myCardsResult: [],
     hisCardsResult: [],
-  }
+  };
 
   componentDidMount() {
     this.createDeck();
@@ -100,11 +100,11 @@ class App extends Component {
         u.color = "black"
       } else {
         u.color = "red"
-      }
-      if (u.suit === "spades") u.suitLogo = spadesLogo
-      if (u.suit === "diamonds") u.suitLogo = diamondsLogo
-      if (u.suit === "clubs") u.suitLogo = clubsLogo
-      if (u.suit === "hearts") u.suitLogo = heartsLogo
+      };
+      if (u.suit === "spades") u.suitLogo = spadesLogo;
+      if (u.suit === "diamonds") u.suitLogo = diamondsLogo;
+      if (u.suit === "clubs") u.suitLogo = clubsLogo;
+      if (u.suit === "hearts") u.suitLogo = heartsLogo;
     });
     for (let i = 0; i < 1000; i++) {
       let location1 = Math.floor((Math.random() * deck.length));
@@ -225,6 +225,7 @@ class App extends Component {
             <Cards data={this.state.myCards} />
           </div>
           <img src={table} className="table" alt="" />
+          <h1 className="poker">Poker</h1>
           <button onClick={this.stepOne}>Step 1</button>
           <button onClick={this.stepTwo}>Step 2</button>
           <button onClick={this.stepThree}>Step 3</button>

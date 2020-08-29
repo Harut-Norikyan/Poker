@@ -1,5 +1,4 @@
 ////nkarelu block
-
 import React, { Component } from "react";
 
 class ResultComponent extends Component {
@@ -8,10 +7,8 @@ class ResultComponent extends Component {
         youWin: false,
         dealerWin: false,
         draw: false,
-        // dealerPoints: 0,
-        // yourPoints: 0,
         yourCombName: '',
-        hisCombName: "",
+        hisCombName: '',
     };
 
     componentDidUpdate(prevProps) {
@@ -44,17 +41,6 @@ class ResultComponent extends Component {
                 hisCombName: this.props.hisCombName,
             });
         };
-
-        // if (this.state.dealerPoints !== this.props.dealerPoints && this.state.dealerPoints < this.props.dealerPoints) {
-        //     this.setState({
-        //         dealerPoints: this.state.dealerPoints + 1,
-        //     });
-        // };
-        // if (this.state.yourPoints !== this.props.yourPoints && this.state.yourPoints < this.props.yourPoints) {
-        //     this.setState({
-        //         dealerPoints: this.state.dealerPoints + 1,
-        //     });
-        // };
     };
 
     render() {
@@ -100,20 +86,6 @@ class ResultComponent extends Component {
                 {youWin ? <div>{youWinComponent}</div> : null}
                 {hisCombName ? <div>{dealerCombination}</div> : null}
                 {yourCombName ? <div>{yourCombination}</div> : null}
-
-                {/* <div className="pointsBlock">
-                    <div className="point">
-                        <h2 className="pointTitle">Your Points</h2>
-                        <p className="pointerDesc">{this.props.yourPoints}</p>
-                    </div>
-                    <div className="line" />
-                    <div className="point">
-                        <h2 className="pointTitle">Dealer Points</h2>
-                        <p className="pointerDesc">{this.props.dealerPoints}</p>
-                    </div>
-                </div> */}
-
-                
             </div>
         )
     }

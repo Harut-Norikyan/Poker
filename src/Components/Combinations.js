@@ -151,10 +151,10 @@ const Combinations = (props) => {
     // };
 
     if (myDynamicArrays.length === 2 || myDynamicArrays.length === 3 || myDynamicArrays.length === 4) {
-        let lengths = myDynamicArrays.map((a)=>a.length );
-        lengths = Math.max.apply(null, lengths);    
+        let lengths = myDynamicArrays.map((a) => a.length);
+        lengths = Math.max.apply(null, lengths);
         let myDynamicFilter = [];
-        myDynamicFilter.push(myDynamicArrays.filter(m=>m.length === lengths));
+        myDynamicFilter.push(myDynamicArrays.filter(m => m.length === lengths));
         myDynamicArrays = myDynamicFilter[0];
     };
     if (myDynamicArrays.length === 1) {
@@ -290,10 +290,10 @@ const Combinations = (props) => {
     // };
 
     if (hisDynamicArrays.length === 2 || hisDynamicArrays.length === 3 || hisDynamicArrays.length === 4) {
-        let lengths = hisDynamicArrays.map((a)=>a.length );
-        lengths = Math.max.apply(null, lengths);    
+        let lengths = hisDynamicArrays.map((a) => a.length);
+        lengths = Math.max.apply(null, lengths);
         let myDynamicFilter = [];
-        myDynamicFilter.push(hisDynamicArrays.filter(m=>m.length === lengths));
+        myDynamicFilter.push(hisDynamicArrays.filter(m => m.length === lengths));
         hisDynamicArrays = myDynamicFilter[0];
     };
 
@@ -601,14 +601,14 @@ const Combinations = (props) => {
     let myCombMaxNum = 0;
     let myCombName = "";
     if (myCombinations.length) {
-        myCombMaxNum = Math.max.apply(Math, myCombinations.map((m)=> m.id));
-        combinations.filter(m=>{if(myCombMaxNum === m.id){myCombName = m.combination}});
+        myCombMaxNum = Math.max.apply(Math, myCombinations.map((m) => m.id));
+        combinations.filter(m => { if (myCombMaxNum === m.id) { myCombName = m.combination } });
     };
     let hisCombMaxNum = 0;
     let hisCombName = "";
     if (hisCombinations.length) {
-        hisCombMaxNum = Math.max.apply(Math, hisCombinations.map((m)=> m.id));
-        combinations.filter(m=>{if(hisCombMaxNum === m.id){hisCombName = m.combination}})
+        hisCombMaxNum = Math.max.apply(Math, hisCombinations.map((m) => m.id));
+        combinations.filter(m => { if (hisCombMaxNum === m.id) { hisCombName = m.combination } })
     };
 
     if (props.data.stepThree) {
