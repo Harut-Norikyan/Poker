@@ -1,40 +1,40 @@
 ////combinations stanalu block
 /* eslint-disable array-callback-return */
-import React, { useState } from 'react';
+import React from 'react';
 import CompareResults from "./CompareResults";
 
 const Combinations = (props) => {
     // console.log(props);
-    // const hisCardsbyId = [7, 3, 2, 8, 9, 10, 11].sort((a, b) => a - b);
+    // const hisCardsbyId = [11, 6, 12, 13, 8, 9, 7].sort((a, b) => a - b);
     // let hisResult = [
-    //     { value: "7", suit: "diamonds", id: 7, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "3", suit: "diamonds", id: 3, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "2", suit: "diamonds", id: 2, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "8", suit: "diamonds", id: 8, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "9", suit: "diamonds", id: 9, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "10", suit: "spades", id: 10, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "11", suit: "spades", id: 11, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "J", suit: "sxs", id: 11, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "6", suit: "dfsf", id: 6, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "Q", suit: "rtyrt", id: 12, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "K", suit: "rtyrty", id: 13, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "8", suit: "fhfg", id: 8, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "9", suit: "sfdf", id: 9, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "7", suit: "sdfdf", id: 7, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
     // ].sort((a, b) => a.id - b.id);
     // // const hisSuits = ["diamonds", "diamonds", "diamonds", "diamonds", "diamonds", "spades", "spades"];
     // const hisSuits = ["sxs", "dfsf", "rtyrt", "rtyrty", "fhfg", "sfdf", "sdfdf"];
 
-    // const hisCards = [{ id: 7 }, { id: 3 }].sort((a, b) => a - b);;
+    // const hisCards = [{ id: 11 }, { id: 6 }].sort((a, b) => a - b);;
 
-    // const myCardsbyId = [5, 12, 2, 8, 9, 10, 11].sort((a, b) => a - b);
+    // const myCardsbyId = [3, 4, 12, 13, 8, 9, 7].sort((a, b) => a - b);
     // let myResult = [
-    //     { value: "5", suit: "diamonds", id: 5, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "12", suit: "diamonds", id: 12, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "2", suit: "diamonds", id: 2, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "8", suit: "diamonds", id: 8, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "9", suit: "diamonds", id: 9, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "10", suit: "spades", id: 10, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
-    //     { value: "J", suit: "spades", id: 11, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "3", suit: "sxs", id: 3, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "4", suit: "dfsf", id: 4, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "Q", suit: "rtyrt", id: 12, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "K", suit: "rtyrty", id: 13, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "8", suit: "fhfg", id: 8, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "9", suit: "sfdf", id: 9, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
+    //     { value: "7", suit: "sdfdf", id: 7, color: "black", suitLogo: "/static/media/club.da8f6c78.png" },
     // ].sort((a, b) => a.id - b.id);
     // // const mySuits = ["diamonds", "diamonds", "diamonds", "diamonds", "diamonds", "spades", "spades"];
     // const mySuits = ["sxs", "dfsf", "rtyrt", "rtyrty", "fhfg", "sfdf", "sdfdf"];
-    // const myCards = [{ id: 5 }, { id: 12 }].sort((a, b) => a - b);;
+    // const myCards = [{ id: 3 }, { id: 12 }].sort((a, b) => a - b);;
 
-    // const ourCards = [8, 9, 11, 10, 2].sort((a, b) => a - b);
+    // const ourCards = [12, 13, 8, 9, 7].sort((a, b) => a - b);
 
 
     const myResult = props.data.myCardsResult.sort((a, b) => a.id - b.id);
@@ -90,7 +90,7 @@ const Combinations = (props) => {
     ];
     let myCombinations = [];
     let hisCombinations = [];
-    const [stepThree, setStepThree] = useState(false);
+    // const [stepThree, setStepThree] = useState(false);
 
     //// Straight, Straight--Flush, Flush--Royal
     //// ete unenq krknvoc qarter bayc mer combinations karox e linel === Straight, Straight--Flush, Flush--Royal
@@ -315,7 +315,6 @@ const Combinations = (props) => {
         hisDynamicArrays.forEach(item => {
             hisArrforSFcards.push(hisResult.filter(data => data.id === item));
         });
-
         let hisCardsForFS = [];
         let hisSuitsForSF = [];
         hisArrforSFcards.map(m => hisCardsForFS.push(...m));  //[[{}],[{}],[{}]...]
@@ -611,12 +610,6 @@ const Combinations = (props) => {
         combinations.filter(m => { if (hisCombMaxNum === m.id) { hisCombName = m.combination } })
     };
 
-    if (props.data.stepThree) {
-        setTimeout(() => {
-            setStepThree(true)
-        }, 500)
-    };
-
     return (
         <div>
             <CompareResults
@@ -630,7 +623,7 @@ const Combinations = (props) => {
                 // myCards={myCards}
                 // hisCards={hisCards}
                 // ourCards={ourCards}
-                stepThree={stepThree}
+                stepThree={props.data.stepThree}
                 myCombName={myCombName}
                 hisCombName={hisCombName}
             />
